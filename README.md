@@ -1,1 +1,992 @@
-# industry-shorts
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT-Driven Manufacturing Transformation Journey</title>
+    <style>
+        :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  /* RGB versions for opacity control */
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  /* Background color tokens (Light Mode) */
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  /* Semantic Color Tokens (Light Mode) */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+
+  /* Typography */
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  /* Spacing */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
+    0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+
+    --color-success-rgb: var(--color-teal-300-rgb);
+    --color-error-rgb: var(--color-red-400-rgb);
+    --color-warning-rgb: var(--color-orange-400-rgb);
+    --color-info-rgb: var(--color-gray-300-rgb);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
+    format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+    padding: var(--space-24);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: var(--space-32);
+    padding: var(--space-24);
+}
+
+.header h1 {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+    letter-spacing: var(--letter-spacing-tight);
+}
+
+.header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-24);
+}
+
+.journey-flow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    position: relative;
+}
+
+.phase-card {
+    background: var(--color-surface);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-standard);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+}
+
+.phase-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.phase-card.active {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.phase-card.phase-red {
+    border-left: 6px solid #dc2626;
+}
+
+.phase-card.phase-yellow {
+    border-left: 6px solid #f59e0b;
+}
+
+.phase-card.phase-lightgreen {
+    border-left: 6px solid #84cc16;
+}
+
+.phase-card.phase-green {
+    border-left: 6px solid #22c55e;
+}
+
+.phase-card.phase-darkgreen {
+    border-left: 6px solid #16a34a;
+}
+
+.phase-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-16);
+}
+
+.phase-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: white;
+    margin-right: var(--space-16);
+}
+
+.phase-red .phase-number {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+}
+
+.phase-yellow .phase-number {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.phase-lightgreen .phase-number {
+    background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+}
+
+.phase-green .phase-number {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+
+.phase-darkgreen .phase-number {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+}
+
+.phase-title-group {
+    flex: 1;
+}
+
+.phase-status {
+    display: inline-block;
+    padding: var(--space-4) var(--space-12);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-8);
+}
+
+.phase-red .phase-status {
+    background: rgba(220, 38, 38, 0.1);
+    color: #dc2626;
+}
+
+.phase-yellow .phase-status {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+}
+
+.phase-lightgreen .phase-status {
+    background: rgba(132, 204, 22, 0.1);
+    color: #65a30d;
+}
+
+.phase-green .phase-status {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.phase-darkgreen .phase-status {
+    background: rgba(22, 163, 74, 0.1);
+    color: #15803d;
+}
+
+.phase-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+}
+
+.phase-duration {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+}
+
+.expand-icon {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-secondary);
+    transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+.phase-card.active .expand-icon {
+    transform: rotate(180deg);
+}
+
+.phase-summary {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.phase-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease-standard);
+}
+
+.phase-card.active .phase-details {
+    max-height: 2000px;
+}
+
+.phase-content {
+    padding-top: var(--space-24);
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-16);
+}
+
+.detail-section {
+    margin-bottom: var(--space-24);
+}
+
+.detail-section h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+}
+
+.detail-section ul {
+    list-style: none;
+    display: grid;
+    gap: var(--space-8);
+}
+
+.detail-section li {
+    padding: var(--space-12);
+    background: var(--color-bg-1);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    display: flex;
+    align-items: start;
+    gap: var(--space-8);
+}
+
+.detail-section li::before {
+    content: "▸";
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-16);
+}
+
+.metric-card {
+    background: var(--color-bg-3);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    text-align: center;
+}
+
+.metric-value {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: var(--space-4);
+}
+
+.metric-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+}
+
+.tech-tag {
+    padding: var(--space-8) var(--space-12);
+    background: var(--color-secondary);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+
+.case-study-highlight {
+    background: var(--color-bg-2);
+    border: 2px solid var(--color-warning);
+    border-radius: var(--radius-lg);
+    padding: var(--space-20);
+    margin-top: var(--space-16);
+}
+
+.case-study-highlight h4 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-12);
+}
+
+.case-study-highlight p {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    margin-bottom: var(--space-8);
+    line-height: 1.6;
+}
+
+.arrow-connector {
+    width: 3px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--color-border), var(--color-primary));
+    margin: 0 auto;
+    position: relative;
+}
+
+.arrow-connector::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid var(--color-primary);
+}
+
+.summary-stats {
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-32);
+    margin-top: var(--space-32);
+    text-align: center;
+}
+
+.summary-stats h2 {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-24);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-24);
+}
+
+.stat-item {
+    padding: var(--space-20);
+    background: var(--color-bg-3);
+    border-radius: var(--radius-lg);
+}
+
+.stat-item .stat-value {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-success);
+    display: block;
+    margin-bottom: var(--space-8);
+}
+
+.stat-item .stat-label {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+}
+
+.icon {
+    font-size: var(--font-size-lg);
+}
+
+@media (max-width: 768px) {
+    .phase-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .metrics-grid,
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Industrial Enterprise Digital Transformation Journey</h1>
+        <p>From Siloed Legacy Systems to Unfied Visibility Excellence: A Data-Driven Success Story</p>
+    </div>
+
+    <div class="container">
+        <div class="journey-flow" id="journeyFlow"></div>
+
+        <div class="summary-stats">
+            <h2>Transformation Impact: Real-World Results</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-value">30-50%</span>
+                    <span class="stat-label">Downtime Reduction</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">48% → 71%</span>
+                    <span class="stat-label">OEE Improvement</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">$850K+</span>
+                    <span class="stat-label">Annual Savings</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">12-18 mo</span>
+                    <span class="stat-label">ROI Payback Period</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">250%</span>
+                    <span class="stat-label">ROI Achieved</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">18-25%</span>
+                    <span class="stat-label">Maintenance Cost Savings</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const phasesData = [
+            {
+                id: 1,
+                number: "01",
+                status: "CURRENT STATE",
+                title: "Siloed Legacy Systems",
+                duration: "The Challenge",
+                color: "red",
+                summary: "Data trapped in silos, no real-time visibility, reactive maintenance only",
+                challenges: [
+                    "Manual data entry from machines",
+                    "Disconnected systems (SAP, Oracle, MQTT, field devices)",
+                    "No real-time visibility into operations",
+                    "Reactive maintenance culture",
+                    "35% unplanned downtime impacting production"
+                ],
+                metrics: [
+                    { label: "Overall Equipment Effectiveness (OEE)", value: "48-60%" },
+                    { label: "Downtime Cost per Hour", value: "$5,000" },
+                    { label: "Reactive Maintenance", value: "43%" },
+                    { label: "Unplanned Downtime", value: "35%" }
+                ],
+                technologies: ["ERP Systems", "Isolated Databases", "Manual Monitoring", "Spreadsheets"]
+            },
+            {
+                id: 2,
+                number: "02",
+                status: "TRANSITION PHASE",
+                title: "Multi-Source Data Integration",
+                duration: "3-6 months",
+                color: "yellow",
+                summary: "Implement unified data ingestion layer connecting all systems",
+                actions: [
+                    "Deploy IoT connectors for legacy systems",
+                    "Build data ingestion pipelines",
+                    "Implement edge gateways for real-time collection",
+                    "Standardize data formats across sources",
+                    "Create unified data lake architecture"
+                ],
+                dataSources: [
+                    "SAP ERP",
+                    "Oracle Databases",
+                    "Azure Event Hub",
+                    "MQTT Sensors",
+                    "MongoDB",
+                    "Field Devices"
+                ],
+                technologies: ["Data Integration Platform", "MQTT Brokers", "IoT Gateways", "API Connectors", "Edge Computing"]
+            },
+            {
+                id: 3,
+                number: "03",
+                status: "EMERGING PROGRESS",
+                title: "Real-Time Monitoring and Observability",
+                duration: "Ongoing",
+                color: "lightgreen",
+                summary: "Streaming data enables real-time visibility and early issue detection",
+                improvements: [
+                    "Real-time device data streams flowing continuously",
+                    "Live monitoring dashboards deployed across factory floor",
+                    "Data lineage tracking active for quality control",
+                    "Consumer lag alerts preventing data bottlenecks",
+                    "Pipeline health monitoring with automated alerts"
+                ],
+                metrics: [
+                    { label: "Downtime Reduction", value: "25%" },
+                    { label: "OEE Improvement", value: "+5-10%" },
+                    { label: "Issue Detection Time", value: "Minutes vs Days" }
+                ],
+                technologies: ["Streaming Platforms", "Real-time Dashboards", "Observability Tools", "Data Lineage", "Alert Systems"]
+            },
+            {
+                id: 4,
+                number: "04",
+                status: "INTELLIGENCE LAYER",
+                title: "Predictive Analytics and AI",
+                duration: "6-12 months",
+                color: "green",
+                summary: "Machine learning models predict failures weeks in advance, enabling proactive maintenance",
+                capabilities: [
+                    "ML models analyzing equipment patterns 24/7",
+                    "Anomaly detection identifying issues before failure",
+                    "Predictive maintenance alerts (2-4 weeks advance notice)",
+                    "Automated maintenance scheduling optimization",
+                    "Root cause analysis for recurring issues"
+                ],
+                metrics: [
+                    { label: "Downtime Reduction", value: "50%" },
+                    { label: "Maintenance Cost Savings", value: "18-25%" },
+                    { label: "Failures Predicted", value: "65%" },
+                    { label: "OEE Improvement", value: "+15-20%" }
+                ],
+                technologies: ["Machine Learning", "AI Analytics", "Predictive Models", "Alert Systems", "Agentic AI"],
+                caseStudy: {
+                    title: "Industrial Electric Generator Appliance Manufacturer",
+                    description: "An Arkansas-based manufacturer achieved 30% downtime reduction and $850,000 in annual savings by transitioning from reactive to predictive maintenance. This number is just for one product line, you can calculate the amount could go to millions of savings when applied enterprise-wide. This also comes as another bottleneck with major IoT platforms as they're, foundationally, never prepared/ready to tackle the large scale data influx required to make it an digital innovation success."
+                }
+            },
+            {
+                id: 5,
+                number: "05",
+                status: "OPTIMIZATION",
+                title: "Smart OEM Excellence",
+                duration: "Continuous",
+                color: "darkgreen",
+                summary: "Autonomous, self-optimizing operations driving continuous improvement and maximum efficiency",
+                outcomes: [
+                    "Overall Equipment Effectiveness: 71%",
+                    "Autonomous workflows with minimal human intervention",
+                    "Continuous self-optimization of production processes",
+                    "Predictive supply chain management",
+                    "Quality control automation with AI vision systems",
+                    "Energy optimization reducing operational costs"
+                ],
+                metrics: [
+                    { label: "OEE Achievement", value: "71%" },
+                    { label: "Downtime Reduction", value: "30%" },
+                    { label: "Annual Savings", value: "$850K+" },
+                    { label: "ROI Timeline", value: "12-18 mo" },
+                    { label: "ROI Percentage", value: "250%" },
+                    { label: "Maintenance Cost Reduction", value: "18-25%" }
+                ],
+                technologies: ["AI/ML", "Autonomous Systems", "Digital Twin", "Predictive Supply Chain", "Smart Sensors", "Computer Vision"],
+                caseStudies: [
+                    {
+                        title: "CooperVision",
+                        description: "Contact lens manufacturer achieved 20% OEE increase with 14-day investment payoff, optimizing production without facility expansion."
+                    },
+                    {
+                        title: "Industrial Equipment Manufacturer",
+                        description: "Improved OEE from 48% to 71% in just 9 months, with 35% scrap reduction and 18% performance increase."
+                    },
+                    {
+                        title: "Siemens Multi-Line Production",
+                        description: "Achieved 250% ROI in 18 months with comprehensive predictive maintenance deployment, reducing emergency maintenance by 40%."
+                    }
+                ]
+            }
+        ];
+
+        function createPhaseCard(phase) {
+            const card = document.createElement('div');
+            card.className = `phase-card phase-${phase.color}`;
+            card.dataset.phaseId = phase.id;
+
+            const header = document.createElement('div');
+            header.className = 'phase-header';
+
+            const numberBadge = document.createElement('div');
+            numberBadge.className = 'phase-number';
+            numberBadge.textContent = phase.number;
+
+            const titleGroup = document.createElement('div');
+            titleGroup.className = 'phase-title-group';
+
+            const status = document.createElement('span');
+            status.className = 'phase-status';
+            status.textContent = phase.status;
+
+            const title = document.createElement('h2');
+            title.className = 'phase-title';
+            title.textContent = phase.title;
+
+            const duration = document.createElement('div');
+            duration.className = 'phase-duration';
+            duration.textContent = phase.duration;
+
+            titleGroup.appendChild(status);
+            titleGroup.appendChild(title);
+            titleGroup.appendChild(duration);
+
+            const expandIcon = document.createElement('span');
+            expandIcon.className = 'expand-icon';
+            expandIcon.textContent = '▼';
+
+            header.appendChild(numberBadge);
+            header.appendChild(titleGroup);
+            header.appendChild(expandIcon);
+
+            const summary = document.createElement('p');
+            summary.className = 'phase-summary';
+            summary.textContent = phase.summary;
+
+            const details = document.createElement('div');
+            details.className = 'phase-details';
+
+            const content = document.createElement('div');
+            content.className = 'phase-content';
+
+            // Add challenges, actions, improvements, or outcomes
+            if (phase.challenges) {
+                const section = createDetailSection('🚨 Key Challenges', phase.challenges);
+                content.appendChild(section);
+            }
+
+            if (phase.actions) {
+                const section = createDetailSection('⚙️ Implementation Actions', phase.actions);
+                content.appendChild(section);
+            }
+
+            if (phase.improvements) {
+                const section = createDetailSection('📈 Progress Indicators', phase.improvements);
+                content.appendChild(section);
+            }
+
+            if (phase.capabilities) {
+                const section = createDetailSection('🤖 AI Capabilities', phase.capabilities);
+                content.appendChild(section);
+            }
+
+            if (phase.outcomes) {
+                const section = createDetailSection('🎯 Business Outcomes', phase.outcomes);
+                content.appendChild(section);
+            }
+
+            // Add data sources if available
+            if (phase.dataSources) {
+                const section = document.createElement('div');
+                section.className = 'detail-section';
+                const heading = document.createElement('h3');
+                heading.textContent = '🔗 Connected Data Sources';
+                section.appendChild(heading);
+                const tags = document.createElement('div');
+                tags.className = 'tech-tags';
+                phase.dataSources.forEach(source => {
+                    const tag = document.createElement('span');
+                    tag.className = 'tech-tag';
+                    tag.textContent = source;
+                    tags.appendChild(tag);
+                });
+                section.appendChild(tags);
+                content.appendChild(section);
+            }
+
+            // Add metrics
+            if (phase.metrics) {
+                const section = document.createElement('div');
+                section.className = 'detail-section';
+                const heading = document.createElement('h3');
+                heading.textContent = '📊 Key Metrics';
+                section.appendChild(heading);
+                const grid = document.createElement('div');
+                grid.className = 'metrics-grid';
+                phase.metrics.forEach(metric => {
+                    const metricCard = document.createElement('div');
+                    metricCard.className = 'metric-card';
+                    const value = document.createElement('span');
+                    value.className = 'metric-value';
+                    value.textContent = metric.value;
+                    const label = document.createElement('span');
+                    label.className = 'metric-label';
+                    label.textContent = metric.label;
+                    metricCard.appendChild(value);
+                    metricCard.appendChild(label);
+                    grid.appendChild(metricCard);
+                });
+                section.appendChild(grid);
+                content.appendChild(section);
+            }
+
+            // Add technologies
+            if (phase.technologies) {
+                const section = document.createElement('div');
+                section.className = 'detail-section';
+                const heading = document.createElement('h3');
+                heading.textContent = '🛠️ Technologies Used';
+                section.appendChild(heading);
+                const tags = document.createElement('div');
+                tags.className = 'tech-tags';
+                phase.technologies.forEach(tech => {
+                    const tag = document.createElement('span');
+                    tag.className = 'tech-tag';
+                    tag.textContent = tech;
+                    tags.appendChild(tag);
+                });
+                section.appendChild(tags);
+                content.appendChild(section);
+            }
+
+            // Add case study
+            if (phase.caseStudy) {
+                const highlight = document.createElement('div');
+                highlight.className = 'case-study-highlight';
+                const title = document.createElement('h4');
+                title.textContent = `✨ Success Story: ${phase.caseStudy.title}`;
+                const desc = document.createElement('p');
+                desc.textContent = phase.caseStudy.description;
+                highlight.appendChild(title);
+                highlight.appendChild(desc);
+                content.appendChild(highlight);
+            }
+
+            // Add multiple case studies
+            if (phase.caseStudies) {
+                phase.caseStudies.forEach(study => {
+                    const highlight = document.createElement('div');
+                    highlight.className = 'case-study-highlight';
+                    const title = document.createElement('h4');
+                    title.textContent = `✨ ${study.title}`;
+                    const desc = document.createElement('p');
+                    desc.textContent = study.description;
+                    highlight.appendChild(title);
+                    highlight.appendChild(desc);
+                    content.appendChild(highlight);
+                });
+            }
+
+            details.appendChild(content);
+
+            card.appendChild(header);
+            card.appendChild(summary);
+            card.appendChild(details);
+
+            return card;
+        }
+
+        function createDetailSection(title, items) {
+            const section = document.createElement('div');
+            section.className = 'detail-section';
+            const heading = document.createElement('h3');
+            heading.textContent = title;
+            section.appendChild(heading);
+            const list = document.createElement('ul');
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                list.appendChild(li);
+            });
+            section.appendChild(list);
+            return section;
+        }
+
+        function createArrowConnector() {
+            const arrow = document.createElement('div');
+            arrow.className = 'arrow-connector';
+            return arrow;
+        }
+
+        function initializeJourney() {
+            const container = document.getElementById('journeyFlow');
+            
+            phasesData.forEach((phase, index) => {
+                const card = createPhaseCard(phase);
+                container.appendChild(card);
+                
+                // Add arrow connector between phases (except after last phase)
+                if (index < phasesData.length - 1) {
+                    const arrow = createArrowConnector();
+                    container.appendChild(arrow);
+                }
+
+                // Add click event to toggle phase details
+                card.addEventListener('click', () => {
+                    const isActive = card.classList.contains('active');
+                    
+                    // Close all other cards
+                    document.querySelectorAll('.phase-card').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    
+                    // Toggle current card
+                    if (!isActive) {
+                        card.classList.add('active');
+                    }
+                });
+            });
+
+            // Open first card by default
+            const firstCard = container.querySelector('.phase-card');
+            if (firstCard) {
+                firstCard.classList.add('active');
+            }
+        }
+
+        // Initialize the journey flow when page loads
+        document.addEventListener('DOMContentLoaded', initializeJourney);
+    </script>
+</body>
+</html>
