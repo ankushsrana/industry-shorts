@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Twin Demo</title>
+  <style>
+    :root {
+      --color-background: var(--color-cream-50, #fcfcf9);
+      --color-surface: var(--color-cream-100, #fffffd);
+      --color-text: var(--color-slate-900, #13343b);
+      --color-primary: var(--color-teal-500, #21808d);
+      --color-primary-hover: var(--color-teal-600, #1d7480);
+      --color-success: var(--color-teal-500, #21808d);
+      --color-error: var(--color-red-500, #c0152f);
+      --radius-base: 8px;
+      --space-16: 16px;
+      --space-24: 24px;
+      --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html {
+      font-size: 16px;
+    }
+    body {
+      background: var(--color-background);
+      color: var(--color-text);
+      font-family: var(--font-family-base);
+      margin: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 540px;
+      margin: 40px auto 0 auto;
+      padding: 24px;
+      background: var(--color-surface);
+      border-radius: var(--radius-base);
+      box-shadow: 0 6px 18px rgba(19, 52, 59, 0.07);
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: var(--color-primary);
+    }
+    .diagram {
+      font-family: monospace;
+      white-space: pre;
+      line-height: 1.4;
+      background: #f4fafb;
+      border-radius: var(--radius-base);
+      padding: var(--space-16);
+      margin-bottom: var(--space-24);
+      box-shadow: 0 1px 3px rgba(19,52,59,0.07);
+      overflow-x: auto;
+    }
+    .twin-panel {
+      background: #fafdfe;
+      border: 1px solid #e0ecee;
+      border-radius: var(--radius-base);
+      padding: var(--space-16);
+      margin-bottom: var(--space-16);
+    }
+    .metrics {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 16px;
+      font-size: 1.08rem;
+      color: var(--color-primary);
+    }
+    .status-green {
+      color: var(--color-success);
+      font-weight: 600;
+    }
+    .status-red {
+      color: var(--color-error);
+      font-weight: 600;
+    }
+    .log {
+      background: #f5f5f4;
+      border-radius: var(--radius-base);
+      font-family: monospace;
+      font-size: 0.98rem;
+      height: 110px;
+      overflow-y: auto;
+      border: 1px dashed #e0e0e0;
+      padding: 10px 12px;
+      margin-bottom: var(--space-16);
+    }
+    button {
+      font-size: 1rem;
+      padding: 7px 22px;
+      border-radius: var(--radius-base);
+      border: none;
+      background: var(--color-primary);
+      color: #fff;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: background 0.18s;
+    }
+    button:hover {
+      background: var(--color-primary-hover);
+    }
+    .caption {
+      margin-top: 2px;
+      font-size: 1rem;
+      color: #5a6667;
+      margin-bottom: var(--space-16);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Digital Twin Workflow Demo</h1>
+    <div class="caption">
+      This web app demonstrates a digital twin workflow simulating real-time sensor data, analysis, and actions in a loop. <br>
+      <b>Click "Pause" to stop/restart the simulation.</b>
+    </div>
+    <div class="diagram">
++------------------+
+|  Capture Sensor  |
+|      Data        |
++--------+---------+
+         |
+         v
++------------------+
+|  Preprocess &    |
+|   Clean Data     |
++--------+---------+
+         |
+         v
++------------------+
+|  Update Digital  |
+|      Twin        |
++--------+---------+
+         |
+         v
++------------------+
+|  Analyze &       |
+|  Predict         |
++--------+---------+
+         |
+         v
++-------------------------+
+| Recommend/Simulate      |
+| Actions                 |
++-------------------------+
+         |
+         v
++------------------------+
+|  Push to Control       |
+|  System (if any)       |
++------------------------+
+    </div>
+    <div class="twin-panel">
+      <div class="metrics">
+        <div>Temp: <span id="temp">0</span>°C</div>
+        <div>Vibration: <span id="vib">0</span>g</div>
+      </div>
+      <div id="status" class="status-green">Status: OK</div>
+      <div class="log" id="log"></div>
+      <button id="pauseBtn">Pause</button>
+      <button id="stepBtn">Step</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+  </div>
+  <script>
+    // Initial digital twin state
+    let twinState = {
+      temperature: 75,
+      vibration: 0.40,
+      lastUpdate: Date.now(),
+    };
+
+    let running = true;
+    let loopId = null;
+    let logLines = [];
+
+    function captureSensorData() {
+      return {
+        temperature: +(70 + Math.random() * 10).toFixed(2),
+        vibration: +(0.2 + Math.random() * 0.5).toFixed(3),
+        timestamp: Date.now(),
+      };
+    }
+
+    function preprocessData(rawData) {
+      if (rawData.temperature > 100 || rawData.vibration > 5) return null;
+      return rawData;
+    }
+
+    function updateDigitalTwin(state, data) {
+      state.temperature = +((state.temperature * 4 + data.temperature) / 5).toFixed(2);
+      state.vibration = +((state.vibration * 4 + data.vibration) / 5).toFixed(3);
+      state.lastUpdate = data.timestamp;
+      return state;
+    }
+
+    function analyzeTwin(state) {
+      if (state.temperature > 78 && state.vibration > 0.5) {
+        return {
+          action: "schedule_maintenance",
+          reason: "High temp & vibration"
+        };
+      }
+      return { action: "none" };
+    }
+
+    function recommendAction(analysis) {
+      if (analysis.action === "schedule_maintenance") {
+        appendLog("Action: Recommend maintenance. Reason: " + analysis.reason);
+        setStatus("Maintenance Alert", "status-red");
+      } else {
+        appendLog("Action: No intervention needed.");
+        setStatus("Status: OK", "status-green");
+      }
+    }
+
+    function pushToControlSystem(analysis) {
+      if (analysis.action !== "none") {
+        appendLog("Command sent: " + analysis.action);
+      }
+    }
+
+    function appendLog(line) {
+      logLines.push(line);
+      // Keep log short and readable
+      if (logLines.length > 7) logLines.shift();
+      document.getElementById('log').innerText = logLines.join('\n');
+    }
+
+    function setStatus(text, className) {
+      const statusNode = document.getElementById('status');
+      statusNode.innerText = text;
+      statusNode.className = className;
+    }
+
+    function updateUI() {
+      document.getElementById('temp').innerText = twinState.temperature.toFixed(2);
+      document.getElementById('vib').innerText = twinState.vibration.toFixed(3);
+    }
+
+    function stepWorkflow() {
+      const rawData = captureSensorData();
+      appendLog("Sensor: " + `Temp ${rawData.temperature}, Vib ${rawData.vibration}`);
+      const cleanData = preprocessData(rawData);
+      if (!cleanData) {
+        appendLog("Sensor data invalid, skipped");
+        return;
+      }
+      twinState = updateDigitalTwin(twinState, cleanData);
+      updateUI();
+      appendLog("Twin updated: " + `Temp ${twinState.temperature.toFixed(2)}, Vib ${twinState.vibration.toFixed(3)}`);
+      const analysis = analyzeTwin(twinState);
+      recommendAction(analysis);
+      pushToControlSystem(analysis);
+    }
+
+    function mainLoop() {
+      if (running) {
+        stepWorkflow();
+        loopId = setTimeout(mainLoop, 1000);
+      }
+    }
+
+    document.getElementById('pauseBtn').onclick = function () {
+      running = !running;
+      if (running) {
+        appendLog("Simulation resumed.");
+        mainLoop();
+        this.innerText = "Pause";
+      } else {
+        clearTimeout(loopId);
+        appendLog("Simulation paused.");
+        this.innerText = "Resume";
+      }
+    };
+
+    document.getElementById('stepBtn').onclick = function () {
+      if (!running) {
+        stepWorkflow();
+      }
+    };
+
+    document.getElementById('resetBtn').onclick = function () {
+      running = false;
+      clearTimeout(loopId);
+      twinState = {
+        temperature: 75,
+        vibration: 0.40,
+        lastUpdate: Date.now(),
+      };
+      updateUI();
+      setStatus("Status: OK", "status-green");
+      logLines = [];
+      appendLog("Simulation reset. Press Resume or Step.");
+      document.getElementById('pauseBtn').innerText = "Resume";
+    };
+
+    // Start main loop
+    updateUI();
+    setStatus("Status: OK", "status-green");
+    appendLog("Simulation started.");
+    mainLoop();
+  </script>
+</body>
+</html>
