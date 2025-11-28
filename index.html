@@ -159,7 +159,7 @@
       <div id="status" class="status-green">Status: OK</div>
       <div class="log" id="log"></div>
       <button id="pauseBtn">Pause</button>
-      <button id="stepBtn">Step</button>
+      <button id="stopBtn">Stop</button>
       <button id="resetBtn">Reset</button>
     </div>
   </div>
@@ -275,7 +275,7 @@
       }
     };
 
-    document.getElementById('stepBtn').onclick = function () {
+    document.getElementById('stopBtn').onclick = function () {
       if (!running) {
         stepWorkflow();
       }
@@ -292,7 +292,7 @@
       updateUI();
       setStatus("Status: OK", "status-green");
       logLines = [];
-      appendLog("Simulation reset. Press Resume or Step.");
+      appendLog("Simulation reset. Press Resume or Stop.");
       document.getElementById('pauseBtn').innerText = "Resume";
     };
 
