@@ -1,306 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Twin Demo</title>
-  <style>
-    :root {
-      --color-background: var(--color-cream-50, #fcfcf9);
-      --color-surface: var(--color-cream-100, #fffffd);
-      --color-text: var(--color-slate-900, #13343b);
-      --color-primary: var(--color-teal-500, #21808d);
-      --color-primary-hover: var(--color-teal-600, #1d7480);
-      --color-success: var(--color-teal-500, #21808d);
-      --color-error: var(--color-red-500, #c0152f);
-      --radius-base: 8px;
-      --space-16: 16px;
-      --space-24: 24px;
-      --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    html {
-      font-size: 16px;
-    }
-    body {
-      background: var(--color-background);
-      color: var(--color-text);
-      font-family: var(--font-family-base);
-      margin: 0;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 540px;
-      margin: 40px auto 0 auto;
-      padding: 24px;
-      background: var(--color-surface);
-      border-radius: var(--radius-base);
-      box-shadow: 0 6px 18px rgba(19, 52, 59, 0.07);
-    }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 8px;
-      color: var(--color-primary);
-    }
-    .diagram {
-      font-family: monospace;
-      white-space: pre;
-      line-height: 1.4;
-      background: #f4fafb;
-      border-radius: var(--radius-base);
-      padding: var(--space-16);
-      margin-bottom: var(--space-24);
-      box-shadow: 0 1px 3px rgba(19,52,59,0.07);
-      overflow-x: auto;
-    }
-    .twin-panel {
-      background: #fafdfe;
-      border: 1px solid #e0ecee;
-      border-radius: var(--radius-base);
-      padding: var(--space-16);
-      margin-bottom: var(--space-16);
-    }
-    .metrics {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 16px;
-      font-size: 1.08rem;
-      color: var(--color-primary);
-    }
-    .status-green {
-      color: var(--color-success);
-      font-weight: 600;
-    }
-    .status-red {
-      color: var(--color-error);
-      font-weight: 600;
-    }
-    .log {
-      background: #f5f5f4;
-      border-radius: var(--radius-base);
-      font-family: monospace;
-      font-size: 0.98rem;
-      height: 110px;
-      overflow-y: auto;
-      border: 1px dashed #e0e0e0;
-      padding: 10px 12px;
-      margin-bottom: var(--space-16);
-    }
-    button {
-      font-size: 1rem;
-      padding: 7px 22px;
-      border-radius: var(--radius-base);
-      border: none;
-      background: var(--color-primary);
-      color: #fff;
-      cursor: pointer;
-      margin-right: 10px;
-      transition: background 0.18s;
-    }
-    button:hover {
-      background: var(--color-primary-hover);
-    }
-    .caption {
-      margin-top: 2px;
-      font-size: 1rem;
-      color: #5a6667;
-      margin-bottom: var(--space-16);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supplier Risk &amp; Secure Onboarding — A Field Guide</title>
+<meta name="description" content="An educational field guide to modern supplier risk, secure vendor onboarding practices, and the role of automation in procurement risk management.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Digital Twin Workflow Demo</h1>
-    <div class="caption">
-      This web app demonstrates a digital twin workflow simulating real-time sensor data, analysis, and actions in a loop. <br>
-      <b>Click "Pause" to stop/restart the simulation.</b>
-    </div>
-    <div class="diagram">
-+------------------+
-|  Capture Sensor  |
-|      Data        |
-+--------+---------+
-         |
-         v
-+------------------+
-|  Preprocess &    |
-|   Clean Data     |
-+--------+---------+
-         |
-         v
-+------------------+
-|  Update Digital  |
-|      Twin        |
-+--------+---------+
-         |
-         v
-+------------------+
-|  Analyze &       |
-|  Predict         |
-+--------+---------+
-         |
-         v
-+-------------------------+
-| Recommend/Simulate      |
-| Actions                 |
-+-------------------------+
-         |
-         v
-+------------------------+
-|  Push to Control       |
-|  System (if any)       |
-+------------------------+
-    </div>
-    <div class="twin-panel">
-      <div class="metrics">
-        <div>Temp: <span id="temp">0</span>°C</div>
-        <div>Vibration: <span id="vib">0</span>g</div>
+
+<div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+
+<nav class="railnav" id="railnav" aria-label="Section navigation">
+  <ol>
+    <li><a href="#top" data-target="top"><span class="railnav__num">·</span><span class="railnav__label">Start</span></a></li>
+    <li><a href="#ch1" data-target="ch1"><span class="railnav__num">I</span><span class="railnav__label">Modern Risk</span></a></li>
+    <li><a href="#ch2" data-target="ch2"><span class="railnav__num">II</span><span class="railnav__label">Onboarding</span></a></li>
+    <li><a href="#ch3" data-target="ch3"><span class="railnav__num">III</span><span class="railnav__label">Automation</span></a></li>
+    <li><a href="#check" data-target="check"><span class="railnav__num">✓</span><span class="railnav__label">Self-check</span></a></li>
+    <li><a href="#summary" data-target="summary"><span class="railnav__num">§</span><span class="railnav__label">Summary</span></a></li>
+  </ol>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="eyebrow">Procurement · Risk &amp; Compliance</p>
+      <h1 class="hero__title">Supplier Risk<br>&amp; Secure Onboarding</h1>
+      <p class="hero__sub">A field guide to the forces reshaping vendor relationships — and how to onboard
+        suppliers without opening the door to fraud, errors, and compliance failures.</p>
+      <div class="hero__meta">
+        <span>3 chapters</span><span class="dot">·</span><span>7 risk profiles</span><span class="dot">·</span><span>5 onboarding practices</span>
       </div>
-      <div id="status" class="status-green">Status: OK</div>
-      <div class="log" id="log"></div>
-      <button id="pauseBtn">Pause</button>
-      <button id="stopBtn">Stop</button>
-      <button id="resetBtn">Reset</button>
+      <a class="scrollcue" href="#ch1" aria-label="Scroll to first chapter">
+        <span></span>Begin reading
+      </a>
     </div>
-  </div>
-  <script>
-    // Initial digital twin state
-    let twinState = {
-      temperature: 75,
-      vibration: 0.40,
-      lastUpdate: Date.now(),
-    };
+    <div class="stamp" aria-hidden="true">Field<br>Guide</div>
+  </header>
 
-    let running = true;
-    let loopId = null;
-    let logLines = [];
+  <!-- CHAPTER I -->
+  <section class="chapter" id="ch1">
+    <div class="chapter__head">
+      <span class="chapter__num">I.</span>
+      <h2>Mastering Modern Supplier Risk</h2>
+      <p class="chapter__dek">New trends and challenges</p>
+    </div>
 
-    function captureSensorData() {
-      return {
-        temperature: +(70 + Math.random() * 10).toFixed(2),
-        vibration: +(0.2 + Math.random() * 0.5).toFixed(3),
-        timestamp: Date.now(),
-      };
-    }
+    <p class="lede">Supply chains have become genuinely global, and that interconnection cuts both ways.
+      A regulatory shift, a shortage, or a single region going offline can now ripple through an entire
+      supplier base within days. A widely felt lesson from recent years: when one part of the world
+      paused production, the effects were felt almost everywhere else, almost immediately.</p>
 
-    function preprocessData(rawData) {
-      if (rawData.temperature > 100 || rawData.vibration > 5) return null;
-      return rawData;
-    }
+    <h3 class="subhead">Three forces raising the stakes</h3>
+    <div class="trend-grid">
+      <article class="trend-card">
+        <span class="trend-card__icon" data-icon="digital"></span>
+        <h4>Digital Transformation</h4>
+        <p>Paper processes have given way to digital ones — bank transfers instead of cash, portals instead
+          of paperwork. The information hasn't changed, but the exposure has: every digital touchpoint is
+          a potential entry point for cyber-attacks, data breaches, and costly manual errors.</p>
+      </article>
+      <article class="trend-card">
+        <span class="trend-card__icon" data-icon="geo"></span>
+        <h4>Geopolitical Instability</h4>
+        <p>Conflicts, sanctions, and natural disasters no longer stay local. A single regional disruption
+          can alter shipping routes, spike the cost of raw materials, and force a company to rebuild
+          supplier networks with little warning.</p>
+      </article>
+      <article class="trend-card">
+        <span class="trend-card__icon" data-icon="workforce"></span>
+        <h4>Workforce Turnover</h4>
+        <p>Institutional knowledge used to stay put for decades. Higher turnover now means the people who
+          understand a supplier relationship change more often — and every transition risks losing
+          context, training time, and consistency.</p>
+      </article>
+    </div>
 
-    function updateDigitalTwin(state, data) {
-      state.temperature = +((state.temperature * 4 + data.temperature) / 5).toFixed(2);
-      state.vibration = +((state.vibration * 4 + data.vibration) / 5).toFixed(3);
-      state.lastUpdate = data.timestamp;
-      return state;
-    }
+    <h3 class="subhead">Seven risk profiles every procurement team should know</h3>
+    <p class="subhead__note">Click a card to open its file.</p>
+    <div class="risk-grid" id="riskGrid">
+      <!-- populated by script.js -->
+    </div>
+  </section>
 
-    function analyzeTwin(state) {
-      if (state.temperature > 78 && state.vibration > 0.5) {
-        return {
-          action: "schedule_maintenance",
-          reason: "High temp & vibration"
-        };
-      }
-      return { action: "none" };
-    }
+  <!-- CHAPTER II -->
+  <section class="chapter chapter--alt" id="ch2">
+    <div class="chapter__head">
+      <span class="chapter__num">II.</span>
+      <h2>Building Strong Foundations</h2>
+      <p class="chapter__dek">The essential guide to supplier onboarding</p>
+    </div>
 
-    function recommendAction(analysis) {
-      if (analysis.action === "schedule_maintenance") {
-        appendLog("Action: Recommend maintenance. Reason: " + analysis.reason);
-        setStatus("Maintenance Alert", "status-red");
-      } else {
-        appendLog("Action: No intervention needed.");
-        setStatus("Status: OK", "status-green");
-      }
-    }
+    <p class="lede">Onboarding is the front door of every supplier relationship — the first real test of how
+      a partnership will work, before any money changes hands. Handled carelessly, it opens the door to
+      incorrect payments, impersonation fraud, and regulatory breaches that can cascade into much bigger
+      problems later.</p>
 
-    function pushToControlSystem(analysis) {
-      if (analysis.action !== "none") {
-        appendLog("Command sent: " + analysis.action);
-      }
-    }
+    <div class="split-grid">
+      <div class="split-card">
+        <span class="split-card__tag">Uncovers</span>
+        <h4>Red Flags</h4>
+        <p>Onboarding is fundamentally an information-gathering exercise — operational details, compliance
+          standing, and a first real chance to verify bank account information before any funds move.</p>
+      </div>
+      <div class="split-card">
+        <span class="split-card__tag">Reveals</span>
+        <h4>Relationship Signals</h4>
+        <p>How a supplier responds to onboarding questions is itself useful information: response time,
+          clarity, and willingness to collaborate all preview what the ongoing relationship will look like.</p>
+      </div>
+    </div>
 
-    function appendLog(line) {
-      logLines.push(line);
-      // Keep log short and readable
-      if (logLines.length > 7) logLines.shift();
-      document.getElementById('log').innerText = logLines.join('\n');
-    }
+    <h3 class="subhead">Five practices for a stronger onboarding process</h3>
+    <div class="steps" id="stepsList">
+      <!-- populated by script.js -->
+    </div>
 
-    function setStatus(text, className) {
-      const statusNode = document.getElementById('status');
-      statusNode.innerText = text;
-      statusNode.className = className;
-    }
+    <div class="pull-quote">
+      <p>Onboarding works best as a two-way street: a business is vetting the supplier, but the supplier
+        is also placing trust in the business. The strongest processes strike a balance — asking enough to
+        protect the relationship, without asking so much that it undermines it.</p>
+    </div>
+  </section>
 
-    function updateUI() {
-      document.getElementById('temp').innerText = twinState.temperature.toFixed(2);
-      document.getElementById('vib').innerText = twinState.vibration.toFixed(3);
-    }
+  <!-- CHAPTER III -->
+  <section class="chapter" id="ch3">
+    <div class="chapter__head">
+      <span class="chapter__num">III.</span>
+      <h2>Leveraging Automation</h2>
+      <p class="chapter__dek">The future of supplier risk management</p>
+    </div>
 
-    function stepWorkflow() {
-      const rawData = captureSensorData();
-      appendLog("Sensor: " + `Temp ${rawData.temperature}, Vib ${rawData.vibration}`);
-      const cleanData = preprocessData(rawData);
-      if (!cleanData) {
-        appendLog("Sensor data invalid, skipped");
-        return;
-      }
-      twinState = updateDigitalTwin(twinState, cleanData);
-      updateUI();
-      appendLog("Twin updated: " + `Temp ${twinState.temperature.toFixed(2)}, Vib ${twinState.vibration.toFixed(3)}`);
-      const analysis = analyzeTwin(twinState);
-      recommendAction(analysis);
-      pushToControlSystem(analysis);
-    }
+    <p class="lede">Manually managing a handful of suppliers is one thing. Managing hundreds — or tens of
+      thousands — is another problem entirely. At a large enough scale, manual review of banking details,
+      compliance documents, and risk signals simply isn't sustainable, which is why automation has moved
+      from convenience to necessity.</p>
 
-    function mainLoop() {
-      if (running) {
-        stepWorkflow();
-        loopId = setTimeout(mainLoop, 1000);
-      }
-    }
+    <h3 class="subhead">What automated risk platforms add</h3>
+    <div class="benefit-grid">
+      <div class="benefit"><span class="benefit__mark">01</span><h4>Integration</h4><p>Connected systems centralize supplier data across tools instead of scattering it, making information easier to find, cross-check, and trust.</p></div>
+      <div class="benefit"><span class="benefit__mark">02</span><h4>Data Validation</h4><p>Automated checks confirm supplier-provided information — including bank details — is genuine from the first submission, catching fraud before it becomes a payment.</p></div>
+      <div class="benefit"><span class="benefit__mark">03</span><h4>Real-Time Alerts</h4><p>Systems flag inconsistencies or emerging risk the moment they appear, instead of surfacing them weeks later in a routine review.</p></div>
+      <div class="benefit"><span class="benefit__mark">04</span><h4>Efficiency at Scale</h4><p>Removing repetitive manual checks frees teams to focus on judgment calls and higher-value work instead of data entry.</p></div>
+    </div>
 
-    document.getElementById('pauseBtn').onclick = function () {
-      running = !running;
-      if (running) {
-        appendLog("Simulation resumed.");
-        mainLoop();
-        this.innerText = "Pause";
-      } else {
-        clearTimeout(loopId);
-        appendLog("Simulation paused.");
-        this.innerText = "Resume";
-      }
-    };
+    <div class="ai-callout">
+      <span class="ai-callout__tag">Looking ahead</span>
+      <p>Emerging AI capabilities are pushing this further — instant document validation, predictive risk
+        alerts based on historical patterns, and workflows that adapt automatically to each supplier's
+        profile.</p>
+    </div>
 
-    document.getElementById('stopBtn').onclick = function () {
-      if (!running) {
-        stepWorkflow();
-      }
-    };
+    <h3 class="subhead">Securing the whole sourcing-to-payment cycle</h3>
+    <p class="subhead__note">Risk doesn't end at onboarding. A supplier that looked fine on day one can
+      become a risk later — the same discipline needs to run the full length of the relationship.</p>
+    <div class="pillar-grid">
+      <div class="pillar"><h4>Consistency</h4><p>Every supplier is evaluated against the same standard, regardless of size or history.</p></div>
+      <div class="pillar"><h4>Traceability</h4><p>Every transaction, change, and alert is logged, creating an audit trail for later.</p></div>
+      <div class="pillar"><h4>Scalability</h4><p>Automated processes absorb growth in supplier volume without a proportional rise in manual effort.</p></div>
+      <div class="pillar"><h4>Security</h4><p>Ongoing validation — not a one-time check — protects the payment chain whenever supplier details change.</p></div>
+    </div>
+  </section>
 
-    document.getElementById('resetBtn').onclick = function () {
-      running = false;
-      clearTimeout(loopId);
-      twinState = {
-        temperature: 75,
-        vibration: 0.40,
-        lastUpdate: Date.now(),
-      };
-      updateUI();
-      setStatus("Status: OK", "status-green");
-      logLines = [];
-      appendLog("Simulation reset. Press Resume or Stop.");
-      document.getElementById('pauseBtn').innerText = "Resume";
-    };
+  <!-- SELF CHECK -->
+  <section class="checksection" id="check">
+    <div class="chapter__head">
+      <span class="chapter__num">✓</span>
+      <h2>Quick Self-Check</h2>
+      <p class="chapter__dek">How many of these does your process already cover?</p>
+    </div>
+    <div class="checklist" id="checklist"><!-- populated by script.js --></div>
+    <div class="checklist__result" id="checkResult" aria-live="polite">
+      <span class="checklist__count"><span id="checkCount">0</span> / 7 covered</span>
+      <p id="checkMessage">Tick the risk areas your current onboarding process actively addresses.</p>
+    </div>
+  </section>
 
-    // Start main loop
-    updateUI();
-    setStatus("Status: OK", "status-green");
-    appendLog("Simulation started.");
-    mainLoop();
-  </script>
+  <!-- SUMMARY -->
+  <section class="summary" id="summary">
+    <div class="chapter__head">
+      <span class="chapter__num">§</span>
+      <h2>Summary</h2>
+      <p class="chapter__dek">The main thread, in three parts</p>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-block">
+        <h4>01 — The risk landscape has widened</h4>
+        <ul>
+          <li>Global, interconnected supply chains mean local disruptions travel fast.</li>
+          <li>Digital tools, geopolitical shifts, and workforce turnover are compounding older risks.</li>
+          <li>Seven risk profiles — financial, compliance, cyber, quality, geopolitical, ESG, and reputational — now warrant active monitoring.</li>
+        </ul>
+      </div>
+      <div class="summary-block">
+        <h4>02 — Onboarding is the highest-leverage moment</h4>
+        <ul>
+          <li>It's the first, cheapest opportunity to catch red flags before money moves.</li>
+          <li>Precision beats volume: ask only what genuinely informs the decision.</li>
+          <li>A well-explained process builds trust; a confusing one erodes it before the relationship starts.</li>
+        </ul>
+      </div>
+      <div class="summary-block">
+        <h4>03 — Automation makes rigor sustainable</h4>
+        <ul>
+          <li>Manual review doesn't scale past a modest supplier count.</li>
+          <li>Validation, alerts, and audit trails need to run continuously, not just at onboarding.</li>
+          <li>AI is starting to add predictive, adaptive layers on top of standard automation.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Field guide compiled for internal learning and reference.</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
