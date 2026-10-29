@@ -1,1 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supply Chain Brief — Analytics, Agentic AI & Risk</title>
+<meta name="description" content="Researched field notes on supply chain analytics, agentic AI, risk and the plan-to-execution gap, written by Ankush Rana.">
+<meta property="og:title" content="Supply Chain Brief">
+<meta property="og:description" content="Six researched stories on supply chain analytics, agentic AI, risk and planning, 2024 to 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS (shared with Industry Shorts) ============ */
+:root{
+  --ink:        #12151A;
+  --ink-2:      #1B2027;
+  --ink-3:      #262C35;
+  --paper:      #EDE7DA;
+  --paper-2:    #E2DAC8;
+  --text-hi:    #F3EFE4;
+  --text-lo:    #A79E8B;
+  --text-mid:   #B9B2A0;
+  --text-ink:   #1E1B16;
+  --text-ink-lo:#5B5548;
+  --flag:       #B3492B;
+  --flag-hi:    #D65C3B;
+  --verified:   #3E6259;
+  --verified-hi:#4F7C71;
+  --gold:       #C7952B;
 
+  --display: "Zilla Slab", Georgia, serif;
+  --body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --rail-w: 200px;
+  --max-w: 760px;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; scroll-padding-top:1rem; }
+@media (max-width:980px){ html{ scroll-padding-top:3.6rem; } }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+}
+
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--text-hi);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{ color:inherit; }
+h1,h2,h3,h4{ font-family:var(--display); margin:0; color:var(--text-hi); }
+p{ margin:0; }
+ul, ol{ margin:0; padding:0; }
+button{ font:inherit; color:inherit; }
+
+:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:3px;
+}
+
+/* inline citations */
+sup{ line-height:0; }
+sup a{
+  font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--gold);
+  text-decoration:none; padding:0 2px; border-radius:2px;
+}
+sup a:hover{ color:var(--flag-hi); }
+sup a.hl{ background:var(--gold); color:var(--ink); }
+.src-note{ font-family:var(--mono); font-size:0.74rem; color:var(--text-lo); margin-top:0.9rem; }
+.src-note a{ color:var(--gold); text-decoration:none; }
+
+/* ============ PROGRESS BAR ============ */
+.progress-track{
+  position:fixed; top:0; left:0; right:0; height:3px;
+  background:rgba(255,255,255,0.06); z-index:200;
+}
+.progress-fill{
+  height:100%; width:0%;
+  background:linear-gradient(90deg,var(--flag),var(--gold));
+  transition:width 0.08s linear;
+}
+
+/* ============ RAIL NAV ============ */
+.railnav{
+  position:fixed; top:0; left:0; height:100vh; width:var(--rail-w);
+  display:flex; align-items:center; z-index:150;
+  padding-left:2.2rem;
+  pointer-events:none;
+}
+.railnav ol{ list-style:none; pointer-events:auto; }
+.railnav li{ margin:0.6rem 0; }
+.railnav a{
+  display:flex; align-items:center; gap:0.6rem;
+  text-decoration:none; font-family:var(--mono); font-size:0.72rem;
+  letter-spacing:0.04em; color:var(--text-lo);
+  padding:0.15rem 0; border-left:2px solid transparent;
+  padding-left:0.7rem; transition:color 0.2s ease, border-color 0.2s ease;
+}
+.railnav__num{ font-weight:600; width:1.9rem; display:inline-block; color:var(--gold); }
+.railnav a:hover, .railnav a.active{ color:var(--text-hi); border-left-color:var(--gold); }
+.railnav a.active .railnav__num{ color:var(--flag-hi); }
+
+@media (max-width:980px){
+  .railnav{
+    position:fixed; top:3px; left:0; right:0; height:auto; width:100%;
+    background:rgba(18,21,26,0.92); backdrop-filter:blur(6px);
+    padding:0.6rem 1rem; border-bottom:1px solid var(--ink-3);
+  }
+  .railnav ol{ display:flex; gap:1.2rem; overflow-x:auto; list-style:none; scrollbar-width:none; }
+  .railnav ol::-webkit-scrollbar{ display:none; }
+  .railnav li{ margin:0; flex:none; }
+  .railnav__num{ width:auto; }
+  .railnav a{ border-left:none; padding-left:0; padding-bottom:0.3rem; border-bottom:2px solid transparent; white-space:nowrap; }
+  .railnav a:hover, .railnav a.active{ border-bottom-color:var(--gold); border-left-color:transparent; }
+}
+
+/* ============ LAYOUT SHELL ============ */
+main{ margin-left:var(--rail-w); }
+@media (max-width:980px){ main{ margin-left:0; padding-top:3.2rem; } }
+
+.chapter, .checksection, .summary{
+  max-width:var(--max-w);
+  margin:0 auto;
+  padding:6.5rem 1.5rem 3rem;
+}
+.chapter--alt{ background:var(--ink-2); max-width:none; }
+.chapter--alt > *{ max-width:var(--max-w); margin-left:auto; margin-right:auto; }
+
+.chapter__head{ margin-bottom:2.2rem; position:relative; }
+.chapter__num{
+  font-family:var(--mono); color:var(--flag-hi); font-size:0.9rem;
+  letter-spacing:0.08em; display:block; margin-bottom:0.4rem;
+}
+.chapter__head h2{ font-size:clamp(1.8rem,3.4vw,2.5rem); font-weight:600; line-height:1.15; }
+.chapter__dek{ font-family:var(--mono); font-size:0.85rem; color:var(--text-lo); margin-top:0.5rem; }
+
+.lede{ font-size:1.15rem; line-height:1.75; color:#DCD6C7; max-width:66ch; }
+.body-p{ font-size:1rem; line-height:1.75; color:#CFC8B7; max-width:66ch; margin-top:1.3rem; }
+
+.subhead{
+  font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em;
+  color:var(--gold); margin:3rem 0 0.4rem; font-family:var(--mono); font-weight:500;
+}
+.subhead__note{ color:var(--text-lo); font-size:0.85rem; margin-bottom:1.2rem; font-family:var(--mono); }
+
+/* ============ HERO ============ */
+.hero{
+  position:relative; min-height:100vh; display:flex; flex-direction:column;
+  justify-content:center; padding:2rem 1.5rem; overflow:hidden;
+  border-bottom:1px solid var(--ink-3);
+}
+.hero__grid{
+  position:absolute; inset:0; opacity:0.5;
+  background-image:
+    linear-gradient(rgba(199,149,43,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(199,149,43,0.07) 1px, transparent 1px);
+  background-size:42px 42px;
+  -webkit-mask-image:radial-gradient(ellipse at 30% 30%, black 0%, transparent 70%);
+  mask-image:radial-gradient(ellipse at 30% 30%, black 0%, transparent 70%);
+}
+.hero__inner{ max-width:660px; margin-left:clamp(1rem,6vw,4rem); position:relative; z-index:2; }
+.eyebrow{
+  font-family:var(--mono); font-size:0.78rem; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--flag-hi); margin-bottom:1.1rem;
+  opacity:0; animation:fadeUp 0.7s ease forwards; animation-delay:0.05s;
+}
+.hero__title{
+  font-size:clamp(2.6rem,7vw,4.6rem); font-weight:700; line-height:1.03;
+  letter-spacing:-0.01em;
+  opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.15s;
+}
+.hero__sub{
+  font-size:1.15rem; color:#C9C2AF; max-width:48ch; margin-top:1.4rem; line-height:1.7;
+  opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.32s;
+}
+.hero__meta{
+  font-family:var(--mono); font-size:0.8rem; color:var(--text-lo); margin-top:1.8rem;
+  opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.48s;
+}
+.hero__meta .dot{ margin:0 0.6rem; color:var(--flag-hi); }
+
+.scrollcue{
+  display:inline-flex; align-items:center; gap:0.6rem; margin-top:3rem;
+  font-family:var(--mono); font-size:0.8rem; text-decoration:none; color:var(--text-hi);
+  opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.62s;
+}
+.scrollcue span{
+  width:22px; height:34px; border:1.5px solid var(--text-lo); border-radius:12px; position:relative; display:block;
+}
+.scrollcue span::after{
+  content:""; position:absolute; top:6px; left:50%; width:3px; height:6px; background:var(--gold);
+  border-radius:2px; transform:translateX(-50%); animation:scrollDot 1.6s ease infinite;
+}
+@keyframes scrollDot{ 0%{ transform:translate(-50%,0); opacity:1;} 70%{ transform:translate(-50%,10px); opacity:0;} 100%{opacity:0;} }
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+
+.stamp{
+  position:absolute; right:clamp(1rem,6vw,5rem); bottom:clamp(1.2rem,6vh,4rem);
+  width:128px; height:128px; border-radius:50%;
+  border:2px solid var(--flag); color:var(--flag-hi);
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  font-family:var(--mono); font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase;
+  transform:rotate(-10deg) scale(0.7); opacity:0;
+  animation:stampIn 0.5s cubic-bezier(.2,1.4,.4,1) forwards; animation-delay:0.9s;
+}
+.stamp::before{
+  content:""; position:absolute; inset:6px; border:1px solid var(--flag); border-radius:50%; opacity:0.5;
+}
+@keyframes stampIn{ 0%{ opacity:0; transform:rotate(-10deg) scale(1.6);} 70%{opacity:1;} 100%{ opacity:0.9; transform:rotate(-10deg) scale(1);} }
+@media (max-width:700px){ .stamp{ display:none; } }
+
+/* ============ KEY FINDINGS STRIP (hero) ============ */
+.findings{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:2.6rem;
+  border-top:1px solid var(--ink-3); border-bottom:1px solid var(--ink-3);
+  opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.75s;
+}
+.finding{ padding:1rem 1rem 1rem 0; border-right:1px solid var(--ink-3); text-decoration:none; display:block; }
+.finding + .finding{ padding-left:1rem; }
+.finding:last-child{ border-right:none; }
+.finding__n{ font-family:var(--display); font-weight:700; font-size:1.8rem; color:var(--gold); line-height:1; display:block; }
+.finding__l{ font-family:var(--mono); font-size:0.7rem; color:var(--text-lo); line-height:1.45; display:block; margin-top:0.45rem; }
+.finding:hover .finding__n{ color:var(--flag-hi); }
+@media (max-width:700px){
+  .findings{ grid-template-columns:1fr 1fr; }
+  .finding:nth-child(2){ border-right:none; }
+  .finding:nth-child(3){ padding-left:0; border-top:1px solid var(--ink-3); }
+  .finding:nth-child(4){ border-top:1px solid var(--ink-3); }
+}
+
+/* ============ TREND / STAT CARDS ============ */
+.trend-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; margin-top:1.2rem; }
+@media (max-width:760px){ .trend-grid{ grid-template-columns:1fr; } }
+.trend-card{
+  background:var(--ink-2); border:1px solid var(--ink-3); border-radius:4px;
+  padding:1.5rem 1.4rem; position:relative;
+}
+.chapter--alt .trend-card{ background:var(--ink); }
+.trend-card__stat{ display:block; font-family:var(--display); font-weight:700; font-size:2.1rem; color:var(--gold); line-height:1; margin-top:1rem; }
+.trend-card h4{ font-size:1.05rem; margin:0.7rem 0 0.6rem; color:var(--text-hi); }
+.trend-card p{ font-size:0.92rem; color:var(--text-mid); line-height:1.6; }
+.trend-card__icon{ display:block; width:26px; height:26px; position:relative; }
+.trend-card__icon::before, .trend-card__icon::after{ content:""; position:absolute; border-color:var(--gold); }
+/* globe */
+.trend-card__icon[data-icon="geo"]::before{ inset:0; border:1.6px solid var(--gold); border-radius:50%; }
+.trend-card__icon[data-icon="geo"]::after{ top:2px; left:12px; width:1.6px; height:22px; background:var(--gold); transform:rotate(20deg); }
+/* clock */
+.trend-card__icon[data-icon="clock"]::before{ inset:0; border:1.6px solid var(--gold); border-radius:50%; }
+.trend-card__icon[data-icon="clock"]::after{ top:6px; left:12px; width:6px; height:8px; border-left:1.6px solid var(--gold); border-bottom:1.6px solid var(--gold); }
+/* bars */
+.trend-card__icon[data-icon="bars"]::before{ left:2px; bottom:0; width:5px; height:10px; background:var(--gold); box-shadow:8px -6px 0 var(--gold), 16px 2px 0 var(--gold); }
+.trend-card__icon[data-icon="bars"]::after{ left:0; right:0; bottom:-3px; height:1.6px; background:var(--gold); }
+
+/* ============ BENEFIT / PILLAR GRIDS ============ */
+.benefit-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1rem; }
+.benefit-grid--3{ grid-template-columns:repeat(3,1fr); }
+@media (max-width:900px){ .benefit-grid, .benefit-grid--3{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .benefit-grid, .benefit-grid--3{ grid-template-columns:1fr; } }
+.benefit{ padding:1.3rem 1.2rem; background:var(--ink-2); border-radius:4px; border:1px solid var(--ink-3); }
+.chapter--alt .benefit{ background:var(--ink); }
+.benefit__mark{ font-family:var(--mono); color:var(--flag-hi); font-size:0.85rem; }
+.benefit__stat{ display:block; font-family:var(--display); font-weight:700; font-size:1.7rem; color:var(--gold); line-height:1.05; margin-top:0.5rem; }
+.benefit h4{ font-size:1rem; margin:0.6rem 0 0.5rem; }
+.benefit p{ font-size:0.88rem; color:var(--text-mid); line-height:1.55; }
+
+.pillar-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1rem; }
+@media (max-width:900px){ .pillar-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .pillar-grid{ grid-template-columns:1fr; } }
+.pillar{ padding:1.3rem 1.2rem; border-top:2px solid var(--verified); }
+.pillar__num{ font-family:var(--mono); font-size:0.72rem; color:var(--verified-hi); letter-spacing:0.06em; }
+.pillar h4{ font-size:1rem; margin:0.4rem 0 0.5rem; }
+.pillar p{ font-size:0.88rem; color:var(--text-mid); line-height:1.55; }
+
+/* ============ SPLIT GRID ============ */
+.split-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; margin-top:1.2rem; }
+@media (max-width:700px){ .split-grid{ grid-template-columns:1fr; } }
+.split-card{
+  background:var(--ink); border:1px solid var(--ink-3); border-radius:4px; padding:1.5rem 1.4rem;
+}
+.chapter:not(.chapter--alt) .split-card{ background:var(--ink-2); }
+.split-card__tag{
+  font-family:var(--mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--verified-hi); border:1px solid var(--verified); padding:0.2rem 0.5rem; border-radius:20px;
+}
+.split-card__tag--flag{ color:var(--flag-hi); border-color:var(--flag); }
+.split-card__stat{ display:block; font-family:var(--display); font-weight:700; font-size:2.2rem; color:var(--gold); line-height:1; margin-top:1rem; }
+.split-card h4{ margin:0.8rem 0 0.5rem; font-size:1.05rem; }
+.split-card p{ font-size:0.92rem; color:var(--text-mid); line-height:1.6; }
+
+/* ============ CALLOUTS ============ */
+.pull-quote{
+  margin-top:2.6rem; padding:1.6rem 1.8rem; border-left:3px solid var(--flag);
+  background:rgba(179,73,43,0.07); border-radius:0 4px 4px 0;
+}
+.pull-quote p{ font-family:var(--display); font-size:1.15rem; line-height:1.6; color:#EFE9DA; font-style:italic; }
+.pull-quote cite{ display:block; margin-top:0.7rem; font-family:var(--mono); font-style:normal; font-size:0.74rem; color:var(--text-lo); letter-spacing:0.04em; }
+
+.ai-callout{
+  margin-top:1.8rem; padding:1.5rem 1.6rem; border:1px dashed var(--gold); border-radius:4px;
+  display:flex; flex-direction:column; gap:0.6rem;
+}
+.ai-callout__tag{ font-family:var(--mono); font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold); }
+.ai-callout p{ font-size:0.98rem; color:#DCD6C7; line-height:1.65; }
+.ladder{ list-style:none; display:flex; flex-direction:column; gap:0.5rem; margin-top:0.4rem; counter-reset:lad; }
+.ladder li{ counter-increment:lad; font-size:0.94rem; color:#DCD6C7; padding-left:2.2rem; position:relative; line-height:1.55; }
+.ladder li::before{ content:"0" counter(lad); position:absolute; left:0; font-family:var(--mono); color:var(--gold); font-size:0.85rem; }
+
+/* ============ CHARTS ============ */
+.chart{
+  margin:2rem 0 0.4rem; padding:1.4rem 1.4rem 1.1rem; background:var(--ink-2);
+  border:1px solid var(--ink-3); border-radius:4px;
+}
+.chapter--alt .chart{ background:var(--ink); }
+.chart__head{ display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:0.6rem; }
+.chart__tag{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--flag-hi); display:block; }
+.chart__title{ font-family:var(--display); font-weight:600; font-size:1.2rem; margin-top:0.3rem; line-height:1.3; }
+.chart figcaption{ font-family:var(--mono); font-size:0.72rem; color:var(--text-lo); margin-top:0.8rem; line-height:1.6; }
+.chart__hint{ font-family:var(--mono); font-size:0.7rem; color:var(--text-lo); }
+.bar{ cursor:pointer; transform-origin:0 50%; transform:scaleX(0); transition:transform 0.9s cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: reduce){ .bar{ transform:none; } }
+.chart.is-visible .bar{ transform:scaleX(1); }
+
+.seg{ display:inline-flex; border:1px solid var(--ink-3); border-radius:20px; overflow:hidden; }
+.seg button{ border:none; background:transparent; padding:0.35rem 0.85rem; font-family:var(--mono); font-size:0.72rem; color:var(--text-lo); cursor:pointer; }
+.seg button[aria-pressed="true"]{ background:var(--gold); color:var(--ink); font-weight:600; }
+
+/* tooltip (paper card, echoes the risk-file front) */
+.tip{
+  position:fixed; z-index:300; max-width:290px; background:var(--paper); color:var(--text-ink);
+  border-top:3px solid var(--flag); border-radius:4px; padding:0.65rem 0.8rem;
+  font-size:0.82rem; line-height:1.5; box-shadow:0 10px 30px rgba(0,0,0,0.45);
+  pointer-events:none; opacity:0; transform:translateY(4px); transition:opacity 0.12s ease, transform 0.12s ease;
+}
+.tip.show{ opacity:1; transform:none; }
+.tip b{ font-family:var(--mono); color:#8F3720; font-weight:600; }
+
+/* ============ RISK FLIP CARDS ============ */
+.risk-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:0.4rem;
+  perspective:1200px;
+}
+@media (max-width:900px){ .risk-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .risk-grid{ grid-template-columns:1fr; } }
+.risk-card{
+  background:none; border:none; padding:0; cursor:pointer; text-align:left;
+  height:220px; position:relative; font-family:inherit; color:inherit;
+}
+.risk-card__inner{
+  position:relative; display:block; width:100%; height:100%; transition:transform 0.55s cubic-bezier(.3,.8,.4,1);
+  transform-style:preserve-3d;
+}
+.risk-card.is-open .risk-card__inner{ transform:rotateY(180deg); }
+.risk-card__face{
+  position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:4px;
+  padding:1.1rem; display:flex; flex-direction:column;
+}
+.risk-card__face--front{
+  background:var(--paper); color:var(--text-ink); justify-content:space-between;
+  border-top:4px solid var(--flag);
+}
+.risk-card__code{ font-family:var(--mono); font-size:0.72rem; color:#8F3720; letter-spacing:0.06em; font-weight:600; }
+.risk-card__big{ font-family:var(--display); font-weight:700; font-size:1.9rem; color:var(--text-ink); line-height:1; }
+.risk-card__face--front h4{ font-size:1.02rem; color:var(--text-ink); line-height:1.25; }
+.risk-card__hint{ font-family:var(--mono); font-size:0.68rem; color:var(--text-ink-lo); text-transform:uppercase; letter-spacing:0.05em; }
+.risk-card__face--back{
+  background:var(--ink-3); transform:rotateY(180deg); border-top:4px solid var(--gold);
+  justify-content:space-between;
+}
+.risk-card__face--back p{ font-size:0.82rem; line-height:1.55; color:#D8D2C3; }
+.risk-card__back-close{ font-family:var(--mono); font-size:0.68rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.05em; }
+@media (prefers-reduced-motion: reduce){
+  .risk-card__inner{ transition:opacity 0.15s linear; }
+  .risk-card.is-open .risk-card__inner{ transform:none; }
+  .risk-card__face--back{ transform:none; }
+  .risk-card:not(.is-open) .risk-card__face--back{ display:none; }
+  .risk-card.is-open .risk-card__face--front{ display:none; }
+}
+
+/* ============ STEPS (accordion) ============ */
+.steps{ margin-top:1.2rem; border-top:1px solid var(--ink-3); }
+.step{ border-bottom:1px solid var(--ink-3); }
+.step__trigger{
+  width:100%; display:flex; align-items:center; gap:1.1rem; text-align:left;
+  background:none; border:none; color:var(--text-hi); font-family:inherit;
+  padding:1.15rem 0.2rem; cursor:pointer;
+}
+.step__num{ font-family:var(--mono); color:var(--gold); font-size:1.05rem; width:1.6rem; flex:none; }
+.step__title{ font-family:var(--display); font-size:1.1rem; font-weight:600; flex:1; }
+.step__chevron{ font-family:var(--mono); color:var(--text-lo); transition:transform 0.3s ease; flex:none; }
+.step.is-open .step__chevron{ transform:rotate(45deg); color:var(--flag-hi); }
+.step__panel{ max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+.step.is-open .step__panel{ max-height:320px; }
+.step__panel p{ padding:0 0.2rem 1.3rem 2.7rem; font-size:0.94rem; color:var(--text-mid); line-height:1.65; max-width:62ch; }
+.steps__tools{ display:flex; justify-content:flex-end; margin-top:0.6rem; }
+.linkbtn{ background:none; border:none; font-family:var(--mono); font-size:0.72rem; color:var(--gold); cursor:pointer; letter-spacing:0.04em; padding:0.2rem 0; }
+.linkbtn:hover{ color:var(--flag-hi); }
+
+/* ============ TABLE (vendor lens) ============ */
+.ledger{ width:100%; border-collapse:collapse; margin-top:1.4rem; font-size:0.9rem; }
+.ledger th{
+  font-family:var(--mono); font-size:0.68rem; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--gold); text-align:left; padding:0.7rem 0.8rem; border-bottom:1px solid var(--gold);
+}
+.ledger td{ padding:0.85rem 0.8rem; border-bottom:1px solid var(--ink-3); color:#CFC8B7; vertical-align:top; line-height:1.5; }
+.ledger td:first-child{ font-family:var(--display); font-weight:600; color:var(--text-hi); }
+.ledger tbody tr{ transition:background 0.2s ease; }
+.ledger tbody tr:hover{ background:rgba(199,149,43,0.05); }
+.status{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; padding:0.18rem 0.5rem; border-radius:20px; white-space:nowrap; display:inline-block; }
+.status--ok{ color:var(--verified-hi); border:1px solid var(--verified); }
+.status--dir{ color:var(--gold); border:1px solid var(--gold); }
+.status--intent{ color:var(--text-lo); border:1px solid var(--ink-3); }
+.table-wrap{ overflow-x:auto; }
+.disclosure{ font-family:var(--mono); font-size:0.74rem; color:var(--text-lo); margin-top:1.2rem; line-height:1.6; border-left:2px solid var(--ink-3); padding-left:0.9rem; }
+
+/* ============ CAROUSEL (outlook) ============ */
+.carousel{ margin-top:1.2rem; }
+.track{
+  display:flex; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory; padding:0.2rem 0 1rem;
+  scrollbar-width:none; cursor:grab;
+}
+.track::-webkit-scrollbar{ display:none; }
+.track.dragging{ cursor:grabbing; scroll-snap-type:none; user-select:none; }
+.shift{
+  flex:0 0 min(300px, 82%); scroll-snap-align:start; background:var(--ink); border:1px solid var(--ink-3);
+  border-top:2px solid var(--gold); border-radius:4px; padding:1.4rem 1.3rem;
+}
+.shift__num{ font-family:var(--mono); font-size:0.72rem; color:var(--flag-hi); letter-spacing:0.08em; }
+.shift h4{ font-size:1.08rem; margin:0.6rem 0 0.5rem; }
+.shift p{ font-size:0.9rem; color:var(--text-mid); line-height:1.6; }
+.carousel__ctrl{ display:flex; align-items:center; gap:1rem; margin-top:0.4rem; }
+.carousel__btn{
+  width:34px; height:34px; border-radius:50%; border:1px solid var(--ink-3); background:transparent;
+  color:var(--text-hi); font-family:var(--mono); cursor:pointer;
+}
+.carousel__btn:hover:not(:disabled){ border-color:var(--gold); color:var(--gold); }
+.carousel__btn:disabled{ opacity:0.3; cursor:default; }
+.carousel__count{ font-family:var(--mono); font-size:0.75rem; color:var(--text-lo); }
+.carousel__count b{ color:var(--gold); font-weight:600; }
+
+/* ============ SELF CHECK ============ */
+.checksection{ background:var(--ink-2); max-width:none; padding-top:6.5rem; }
+.checksection > *{ max-width:var(--max-w); margin-left:auto; margin-right:auto; }
+.checklist{ display:flex; flex-direction:column; gap:0.6rem; margin-top:1.2rem; }
+.check-item{
+  display:flex; align-items:center; gap:0.9rem; padding:0.85rem 1rem;
+  background:var(--ink); border:1px solid var(--ink-3); border-radius:4px; cursor:pointer;
+  transition:border-color 0.2s ease, background 0.2s ease;
+}
+.check-item input{ width:18px; height:18px; accent-color:var(--gold); flex:none; }
+.check-item span{ font-size:0.95rem; color:#DCD6C7; }
+.check-item.is-checked{ border-color:var(--verified); background:rgba(62,98,89,0.12); }
+.checklist__result{
+  margin-top:1.6rem; padding:1.3rem 1.4rem; background:var(--ink); border-radius:4px; border:1px solid var(--ink-3);
+}
+.checklist__count{ font-family:var(--mono); font-size:1.4rem; color:var(--gold); }
+.meter{ height:4px; background:var(--ink-3); border-radius:2px; margin-top:0.8rem; overflow:hidden; }
+.meter__fill{ height:100%; width:0; background:linear-gradient(90deg,var(--flag),var(--gold)); transition:width 0.4s ease; }
+#checkMessage{ margin-top:0.7rem; font-size:0.9rem; color:var(--text-lo); display:block; }
+
+/* ============ SUMMARY ============ */
+.summary-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; margin-top:1rem; }
+@media (max-width:800px){ .summary-grid{ grid-template-columns:1fr; } }
+.summary-block h4{ font-size:0.98rem; color:var(--gold); font-family:var(--mono); font-weight:500; letter-spacing:0.02em; margin-bottom:0.9rem; line-height:1.45; }
+.summary-block ul{ list-style:none; display:flex; flex-direction:column; gap:0.7rem; }
+.summary-block li{
+  font-size:0.92rem; color:#C9C2AF; line-height:1.55; padding-left:1rem; position:relative;
+}
+.summary-block li::before{ content:"—"; position:absolute; left:0; color:var(--flag-hi); }
+
+/* ============ SOURCES ============ */
+.sources{ border-top:1px solid var(--ink-3); }
+.method p{ font-size:0.92rem; color:var(--text-mid); line-height:1.7; max-width:66ch; margin-bottom:0.9rem; }
+.chips{ display:flex; flex-wrap:wrap; gap:0.5rem; margin:1.2rem 0 1.2rem; }
+.chips button{
+  font-family:var(--mono); font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase;
+  background:transparent; border:1px solid var(--ink-3); color:var(--text-lo); border-radius:20px; padding:0.3rem 0.75rem; cursor:pointer;
+}
+.chips button:hover{ border-color:var(--gold); color:var(--text-hi); }
+.chips button[aria-pressed="true"]{ background:var(--gold); border-color:var(--gold); color:var(--ink); font-weight:600; }
+.refs{ list-style:none; counter-reset:ref; display:flex; flex-direction:column; gap:0.2rem; }
+.refs li{
+  counter-increment:ref; position:relative; padding:0.55rem 0.6rem 0.55rem 2.6rem; font-size:0.86rem; color:var(--text-mid);
+  line-height:1.55; border-radius:4px; transition:opacity 0.25s ease, background 0.3s ease;
+}
+.refs li::before{ content:counter(ref, decimal-leading-zero); position:absolute; left:0.6rem; top:0.6rem; font-family:var(--mono); font-size:0.72rem; color:var(--gold); }
+.refs a{ color:var(--text-hi); text-decoration-color:rgba(199,149,43,0.5); text-underline-offset:3px; word-break:break-word; }
+.refs a:hover{ color:var(--gold); }
+.refs li.dim{ opacity:0.25; }
+.refs li.flash{ background:rgba(199,149,43,0.14); }
+
+/* ============ FOOTER ============ */
+.footer{
+  max-width:var(--max-w); margin:0 auto; padding:3rem 1.5rem 5rem;
+  display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;
+  font-family:var(--mono); font-size:0.8rem; color:var(--text-lo); border-top:1px solid var(--ink-3);
+}
+.footer a{ text-decoration:none; color:var(--text-lo); }
+.footer a:hover{ color:var(--gold); }
+
+/* ============ SCROLL REVEAL ============ */
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease; }
+.reveal.is-visible{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+/* ============ HTML BAR CHARTS (responsive) ============ */
+.hbars{ display:flex; flex-direction:column; gap:1.1rem; margin-top:1.2rem; }
+.hb-row{ display:grid; grid-template-columns:minmax(0,40%) 1fr; gap:1rem; align-items:center; }
+.hb-lab{ font-size:0.86rem; color:#DCD6C7; text-align:right; line-height:1.35; }
+.hb-track{ display:flex; flex-direction:column; gap:4px; border-left:1.5px solid var(--ink-3); padding:2px 0; }
+.hb-line{ display:flex; align-items:center; gap:0.55rem; height:28px; }
+.hbars--grouped .hb-line{ height:20px; }
+.hb-line .bar{ display:block; height:100%; width:calc((100% - 3.8rem) * var(--p)); border-radius:0 2px 2px 0; flex:none; }
+.bar--gold{ background:var(--gold); }
+.bar--flag{ background:var(--flag-hi); }
+.bar--muted{ background:#4A4F57; }
+.hb-val{ font-family:var(--mono); font-size:0.78rem; font-weight:600; color:var(--text-hi); white-space:nowrap; opacity:0; transition:opacity 0.5s ease 0.6s; }
+.chart.is-visible .hb-val{ opacity:1; }
+.bar:hover, .bar:focus-visible{ outline:1.5px solid var(--text-hi); outline-offset:1px; }
+.bar.pinned{ outline:2px solid var(--text-hi); outline-offset:1px; }
+.hb-legend{ display:flex; gap:1.2rem; font-family:var(--mono); font-size:0.72rem; color:var(--text-lo); padding-left:calc(40% + 1rem); }
+.sw{ display:inline-block; width:10px; height:10px; margin-right:0.4rem; vertical-align:-1px; }
+.sw--muted{ background:#4A4F57; } .sw--gold{ background:var(--gold); }
+.hb-line.y23, .hb-line.y24{ transition:opacity 0.35s ease; }
+.hbars[data-focus="2023"] .y24, .hbars[data-focus="2024"] .y23{ opacity:0.15; }
+@media (max-width:640px){
+  .hb-row{ grid-template-columns:1fr; gap:0.35rem; }
+  .hb-lab{ text-align:left; }
+  .hb-legend{ padding-left:0; }
+}
+@media (prefers-reduced-motion: reduce){ .hb-val{ opacity:1; } }
+
+/* =====================================================================
+   SUPPLY CHAIN BRIEF — hub additions
+   ===================================================================== */
+.sr-only{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.hero__byline{ color:var(--text-hi); text-decoration:none; border-bottom:1px solid var(--gold); }
+.hero__byline:hover{ color:var(--gold); }
+.chapter em{ color:var(--text-hi); font-style:italic; }
+
+/* ---- desk ---- */
+.desk-chips{ margin-top:2rem; }
+.desk-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+@media (max-width:900px){ .desk-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){ .desk-grid{ grid-template-columns:1fr; } }
+.desk-card{
+  display:flex; flex-direction:column; gap:0.5rem; text-decoration:none;
+  background:var(--ink-2); border:1px solid var(--ink-3); border-top:2px solid var(--flag);
+  border-radius:4px; padding:1.2rem 1.15rem 1.1rem; min-height:220px;
+  transition:border-color .2s ease, transform .25s ease, opacity .3s ease, filter .3s ease;
+}
+.desk-card:hover{ border-color:var(--gold); transform:translateY(-3px); }
+.desk-card.is-off{ opacity:.18; filter:grayscale(1); pointer-events:none; transform:none; }
+.desk-card__top{ display:flex; justify-content:space-between; align-items:center; }
+.desk-card__num{ font-family:var(--mono); font-size:.72rem; color:var(--flag-hi); letter-spacing:.08em; }
+.desk-card__tag{ font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--verified-hi); border:1px solid var(--verified); border-radius:20px; padding:.12rem .5rem; }
+.desk-card__stat{ font-family:var(--display); font-weight:700; font-size:1.9rem; color:var(--gold); line-height:1; margin-top:.4rem; }
+.desk-card__title{ font-family:var(--display); font-weight:600; font-size:1.08rem; color:var(--text-hi); line-height:1.3; }
+.desk-card__dek{ font-size:.86rem; color:var(--text-mid); line-height:1.5; flex:1; }
+.desk-card__go{ font-family:var(--mono); font-size:.7rem; color:var(--gold); letter-spacing:.04em; }
+
+.deepdive{
+  display:grid; grid-template-columns:1fr auto; gap:.3rem 1rem; align-items:center;
+  margin-top:1.4rem; padding:1.3rem 1.4rem; text-decoration:none;
+  background:var(--paper); color:var(--text-ink); border-radius:4px; border-left:5px solid var(--flag);
+  transition:transform .25s ease;
+}
+.deepdive:hover{ transform:translateX(4px); }
+.deepdive__tag{ grid-column:1; font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:#8F3720; font-weight:600; }
+.deepdive__title{ grid-column:1; font-family:var(--display); font-weight:700; font-size:1.3rem; line-height:1.2; }
+.deepdive__dek{ grid-column:1; font-size:.88rem; color:var(--text-ink-lo); }
+.deepdive__go{ grid-column:2; grid-row:1 / span 3; font-family:var(--display); font-size:2rem; color:var(--flag); }
+
+/* ---- story 01 year flip ---- */
+.yearflip__grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem; }
+@media (max-width:560px){ .yearflip__grid{ grid-template-columns:1fr; } }
+.yearflip__cell{ border-left:2px solid var(--gold); padding:.4rem 0 .4rem 1rem; }
+.yearflip__n{ display:block; font-family:var(--display); font-weight:700; font-size:clamp(2.4rem,6vw,3.4rem); color:var(--gold); line-height:1; }
+.yearflip__n.flip{ animation:flipIn .45s cubic-bezier(.2,.8,.3,1); }
+@keyframes flipIn{ from{ opacity:0; transform:translateY(10px) rotateX(60deg);} to{ opacity:1; transform:none; } }
+.yearflip__l{ display:block; font-size:.86rem; color:var(--text-mid); margin-top:.5rem; line-height:1.45; }
+.yearflip .meter__fill{ transition:width .8s cubic-bezier(.2,.7,.2,1); }
+
+/* ---- story 03 depth gauge ---- */
+.depth{ margin-top:1.2rem; }
+.depth__bar{ height:26px; background:var(--ink-3); border-radius:3px; overflow:hidden; }
+.depth__fill{ display:block; height:100%; background:linear-gradient(90deg,var(--verified),var(--verified-hi)); transition:width .8s cubic-bezier(.2,.7,.2,1), background .4s ease; }
+.depth__fill.is-deep{ background:linear-gradient(90deg,var(--flag),var(--flag-hi)); }
+.depth__read{ margin-top:.8rem; font-size:.95rem; color:#DCD6C7; }
+.depth__n{ font-family:var(--display); font-weight:700; font-size:1.8rem; color:var(--gold); vertical-align:-2px; margin-right:.3rem; }
+
+/* ---- story 04 ambition/reality focus ---- */
+.hb-line.amb, .hb-line.real{ transition:opacity .35s ease; }
+#gapBars[data-focus="amb"] .real, #gapBars[data-focus="real"] .amb{ opacity:.15; }
+
+/* ---- timeline ---- */
+.tl-src{ display:table; margin-top:.6rem; font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--verified-hi); border:1px solid var(--verified); border-radius:20px; padding:.1rem .5rem; }
+
+/* ---- glossary ---- */
+.search{ display:block; margin-top:.4rem; }
+.search input{
+  width:100%; padding:.8rem 1rem; background:var(--ink-2); border:1px solid var(--ink-3); border-radius:4px;
+  color:var(--text-hi); font-family:var(--mono); font-size:.86rem;
+}
+.search input::placeholder{ color:var(--text-lo); }
+.search input:focus{ outline:none; border-color:var(--gold); }
+.gloss-empty{ font-family:var(--mono); font-size:.8rem; color:var(--text-lo); margin-top:1rem; }
+
+/* ---- author ---- */
+.author{ display:grid; grid-template-columns:auto 1fr; gap:1.6rem; align-items:start; }
+@media (max-width:600px){ .author{ grid-template-columns:1fr; } }
+.author__badge{
+  width:112px; height:112px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 30% 30%, var(--ink-3), var(--ink)); border:2px solid var(--gold);
+  box-shadow:0 0 0 6px rgba(199,149,43,.08);
+}
+.author__badge span{ font-family:var(--display); font-weight:700; font-size:2.4rem; color:var(--gold); }
+.author__stats{ display:flex; flex-wrap:wrap; gap:1.6rem; margin-top:1.4rem; border-top:1px solid var(--ink-3); padding-top:1rem; }
+.author__stat{ font-family:var(--mono); font-size:.72rem; color:var(--text-lo); display:flex; flex-direction:column; }
+.author__stat b{ font-family:var(--display); font-size:1.8rem; color:var(--gold); line-height:1; margin-bottom:.3rem; }
+.tags{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.8rem; }
+.tag{ font-family:var(--mono); font-size:.72rem; color:var(--text-hi); background:var(--ink); border:1px solid var(--ink-3); border-radius:20px; padding:.35rem .8rem; transition:border-color .2s ease, color .2s ease; }
+.tag:hover{ border-color:var(--gold); color:var(--gold); }
+.exp{ list-style:none; margin-top:.8rem; border-left:1.5px solid var(--ink-3); }
+.exp li{ position:relative; padding:0 0 1.1rem 1.3rem; display:flex; flex-direction:column; gap:.15rem; }
+.exp li::before{ content:""; position:absolute; left:-5px; top:.35rem; width:8px; height:8px; border-radius:50%; background:var(--gold); }
+.exp__years{ font-family:var(--mono); font-size:.7rem; color:var(--flag-hi); letter-spacing:.04em; }
+.exp__role{ font-family:var(--display); font-weight:600; font-size:1.05rem; }
+.exp__role em{ color:var(--text-mid); font-style:normal; font-weight:500; }
+.exp__note{ font-size:.88rem; color:var(--text-mid); }
+.author__cta{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2rem; }
+.btn{
+  display:inline-flex; align-items:center; font-family:var(--mono); font-size:.76rem; letter-spacing:.04em;
+  text-decoration:none; padding:.7rem 1.1rem; border-radius:3px; border:1px solid var(--ink-3);
+  background:transparent; color:var(--text-hi); cursor:pointer; transition:border-color .2s ease, color .2s ease, background .2s ease;
+}
+.btn:hover{ border-color:var(--gold); color:var(--gold); }
+.btn--gold{ background:var(--gold); border-color:var(--gold); color:var(--ink); font-weight:600; }
+.btn--gold:hover{ background:var(--flag-hi); border-color:var(--flag-hi); color:var(--text-hi); }
+.risk-card__face--back sup a{ color:var(--gold); }
+/* keep every direct child of alt sections on the centred column */
+.chapter--alt > *{ margin-left:auto !important; margin-right:auto !important; }
+.author__more{ margin-top:.6rem; }
+.author__more .subhead{ margin-top:2.4rem; }
+.edu{ list-style:none; display:flex; flex-direction:column; gap:.8rem; margin-top:.8rem; }
+.edu li{ display:flex; flex-direction:column; border-left:2px solid var(--verified); padding-left:.9rem; }
+.edu b{ font-family:var(--display); font-size:1.02rem; color:var(--text-hi); }
+.edu span{ font-size:.86rem; color:var(--text-mid); }
+.tag--stage{ border-color:var(--flag); }
+.author__stats{ gap:1.4rem 2rem; }
+
+</style>
+</head>
+<body>
+
+<div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<nav class="railnav" id="railnav" aria-label="Section navigation">
+  <ol>
+    <li><a href="#top" data-target="top"><span class="railnav__num">·</span><span class="railnav__label">Start</span></a></li>
+    <li><a href="#desk" data-target="desk"><span class="railnav__num">≡</span><span class="railnav__label">The Desk</span></a></li>
+    <li><a href="#s1" data-target="s1"><span class="railnav__num">01</span><span class="railnav__label">Agentic AI</span></a></li>
+    <li><a href="#s2" data-target="s2"><span class="railnav__num">02</span><span class="railnav__label">Plan → Execute</span></a></li>
+    <li><a href="#s3" data-target="s3"><span class="railnav__num">03</span><span class="railnav__label">Risk</span></a></li>
+    <li><a href="#s4" data-target="s4"><span class="railnav__num">04</span><span class="railnav__label">Data & Analytics</span></a></li>
+    <li><a href="#s5" data-target="s5"><span class="railnav__num">05</span><span class="railnav__label">Talent</span></a></li>
+    <li><a href="#s6" data-target="s6"><span class="railnav__num">06</span><span class="railnav__label">India</span></a></li>
+    <li><a href="#timeline" data-target="timeline"><span class="railnav__num">↔</span><span class="railnav__label">Timeline</span></a></li>
+    <li><a href="#glossary" data-target="glossary"><span class="railnav__num">Aa</span><span class="railnav__label">Glossary</span></a></li>
+    <li><a href="#author" data-target="author"><span class="railnav__num">@</span><span class="railnav__label">Author</span></a></li>
+    <li><a href="#sources" data-target="sources"><span class="railnav__num">¶</span><span class="railnav__label">Sources</span></a></li>
+  </ol>
+</nav>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero" id="top">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="eyebrow">Supply Chain · Analytics · Agentic AI · Risk</p>
+      <h1 class="hero__title">Supply Chain Brief</h1>
+      <p class="hero__sub">Researched field notes on how supply chains plan, sense risk and act, and what analytics and AI agents are really changing, from 2024 to 2026.</p>
+      <p class="hero__meta">By <a href="#author" class="hero__byline">Ankush Rana</a><span class="dot">·</span>6 stories<span class="dot">·</span>17 sources<span class="dot">·</span>Updated Oct 2026</p>
+
+      <div class="findings" aria-label="Headline numbers">
+        <a class="finding" href="#s1"><span class="finding__n">$53B</span><span class="finding__l">forecast spend on SCM software with agentic AI by 2030</span></a>
+        <a class="finding" href="#s3"><span class="finding__n">82%</span><span class="finding__l">of supply chain leaders say new tariffs affect them</span></a>
+        <a class="finding" href="#s4"><span class="finding__n">19%</span><span class="finding__l">are deploying AI tools at scale</span></a>
+        <a class="finding" href="#s2"><span class="finding__n">~1 in 5</span><span class="finding__l">report meaningful value from advanced planning</span></a>
+      </div>
+
+      <a href="#desk" class="scrollcue"><span aria-hidden="true"></span>Open the desk</a>
+    </div>
+    <div class="stamp" aria-hidden="true">Field<br>Notes</div>
+  </header>
+
+  <!-- ================= DESK ================= -->
+  <section class="chapter" id="desk">
+    <div class="chapter__head">
+      <span class="chapter__num">THE DESK</span>
+      <h2>Six stories, one thread</h2>
+      <p class="chapter__dek">Filter by theme, then jump into a story</p>
+    </div>
+    <p class="lede">Supply chains have more data and software than ever, yet the distance between a plan, a decision and an action on the ground is still where value leaks. Each story below looks at one part of that gap, using research from Gartner, McKinsey, BCG, KPMG, the World Economic Forum and others.</p>
+
+    <div class="chips desk-chips" id="deskChips" role="group" aria-label="Filter stories by theme">
+      <button type="button" data-topic="all" aria-pressed="true">All</button>
+      <button type="button" data-topic="ai" aria-pressed="false">Agentic AI</button>
+      <button type="button" data-topic="planning" aria-pressed="false">Planning</button>
+      <button type="button" data-topic="risk" aria-pressed="false">Risk</button>
+      <button type="button" data-topic="analytics" aria-pressed="false">Analytics</button>
+      <button type="button" data-topic="people" aria-pressed="false">Talent</button>
+      <button type="button" data-topic="india" aria-pressed="false">India</button>
+    </div>
+    <div class="desk-grid" id="deskGrid"></div>
+
+    <a class="deepdive" href="../plan-to-action/">
+      <span class="deepdive__tag">Long read</span>
+      <span class="deepdive__title">Closing the Plan-to-Action Gap</span>
+      <span class="deepdive__dek">The full eight-chapter market brief with charts, a self-check and a 2027–2030 outlook.</span>
+      <span class="deepdive__go" aria-hidden="true">→</span>
+    </a>
+  </section>
+
+  <!-- ================= S1 AGENTIC AI ================= -->
+  <section class="chapter chapter--alt story" id="s1" data-topic="ai">
+    <div class="chapter__head">
+      <span class="chapter__num">STORY 01 · AGENTIC AI</span>
+      <h2>The $53 billion bet on supply chain agents</h2>
+      <p class="chapter__dek">Spending is about to multiply. Proof of value has to keep up.</p>
+    </div>
+    <p class="lede">Gartner expects spending on supply chain management software with agentic AI capabilities to grow from less than $2 billion in 2025 to $53 billion by 2030. It also expects the share of enterprises using SCM software that have adopted agentic AI features to rise from 5% to 60% over the same period.<sup><a href="#r1">1</a></sup></p>
+
+    <figure class="chart yearflip" id="agentFlip">
+      <div class="chart__head">
+        <div>
+          <span class="chart__tag">Exhibit 1 · Gartner, Apr 2026</span>
+          <p class="chart__title">Agentic AI in supply chain software</p>
+        </div>
+        <div class="seg" role="group" aria-label="Choose year">
+          <button type="button" data-year="2025" aria-pressed="true">2025</button>
+          <button type="button" data-year="2030" aria-pressed="false">2030 forecast</button>
+        </div>
+      </div>
+      <div class="yearflip__grid">
+        <div class="yearflip__cell">
+          <span class="yearflip__n" data-2025="&lt;$2B" data-2030="$53B">&lt;$2B</span>
+          <span class="yearflip__l">Spend on SCM software with agentic AI</span>
+        </div>
+        <div class="yearflip__cell">
+          <span class="yearflip__n" data-2025="5%" data-2030="60%">5%</span>
+          <span class="yearflip__l">Enterprises using SCM software that have adopted agentic AI features</span>
+          <span class="meter"><span class="meter__fill" id="agentMeter" style="width:5%"></span></span>
+        </div>
+      </div>
+      <figcaption>Source: Gartner forecast, 7 April 2026.<sup><a href="#r1">1</a></sup> Only the two published endpoints are shown; no values in between are implied.</figcaption>
+    </figure>
+
+    <div class="split-grid">
+      <div class="split-card">
+        <span class="split-card__tag">The momentum</span>
+        <span class="split-card__stat">85%</span>
+        <h4>Plan to raise AI spending in 2026</h4>
+        <p>Accenture's research finds 30% of supply chain executives testing AI agents and 24% deploying them.<sup><a href="#r15">15</a></sup> KPMG finds 78% of large US companies expect at least moderate supply chain autonomy by 2027.<sup><a href="#r12">12</a></sup></p>
+      </div>
+      <div class="split-card">
+        <span class="split-card__tag split-card__tag--flag">The discipline</span>
+        <span class="split-card__stat">&gt;40%</span>
+        <h4>Of agentic AI projects may be cancelled by 2027</h4>
+        <p>Gartner cites cost, unclear business value and weak risk controls, and estimates only about 130 of the thousands of vendors claiming "agentic" capabilities are genuine. This is a cross-industry prediction.<sup><a href="#r2">2</a></sup></p>
+      </div>
+    </div>
+
+    <p class="body-p">Gartner's advice is practical: invest first in clusters of simple agents that orchestrate multi-step workflows, and decide the right level of human-in-the-loop oversight, especially early on. Its 2026 technology trends place agentic AI and multiagent systems next to <em>decision governance</em>, a signal that autonomy and accountability are expected to arrive together.<sup><a href="#r1">1</a></sup><sup><a href="#r4">4</a></sup></p>
+
+    <div class="ai-callout">
+      <span class="ai-callout__tag">My take</span>
+      <p>The headline number is spend, not value. Agents that sit on top of weak data and unclear decision rights will be the first projects cancelled. The winners will start with narrow, repeatable decisions, such as replenishment exceptions, expedite calls and supplier follow-ups, then widen the guardrails as trust builds.</p>
+    </div>
+  </section>
+
+  <!-- ================= S2 PLAN TO EXECUTE ================= -->
+  <section class="chapter story" id="s2" data-topic="planning">
+    <div class="chapter__head">
+      <span class="chapter__num">STORY 02 · PLANNING</span>
+      <h2>Why planning systems still aren't paying back</h2>
+      <p class="chapter__dek">The plan-to-execution gap, in three bars</p>
+    </div>
+    <p class="lede">Most large companies have already bought planning technology. BCG finds more than 70% have invested in an advanced planning system, yet only about one in five report meaningful value from advanced capabilities, and just 7% report value from agentic or generative AI.<sup><a href="#r10">10</a></sup></p>
+
+    <figure class="chart" id="chartBcg">
+      <div class="chart__head">
+        <div>
+          <span class="chart__tag">Exhibit 2 · BCG, Feb 2026</span>
+          <p class="chart__title">Investment is broad; value is narrow</p>
+        </div>
+        <span class="chart__hint">Hover or tap a bar</span>
+      </div>
+      <div class="hbars">
+        <div class="hb-row"><span class="hb-lab">Invested in an advanced planning system</span><span class="hb-track"><span class="hb-line"><span class="bar bar--gold" style="--p:.70" tabindex="0" data-tip="<b>&gt;70%</b> have invested in an advanced planning system (lower bound)."></span><span class="hb-val">&gt;70%</span></span></span></div>
+        <div class="hb-row"><span class="hb-lab">Report meaningful value from advanced capabilities</span><span class="hb-track"><span class="hb-line"><span class="bar bar--flag" style="--p:.20" tabindex="0" data-tip="<b>~20%</b>: &quot;about one in five&quot; report meaningful value."></span><span class="hb-val">~20%</span></span></span></div>
+        <div class="hb-row"><span class="hb-lab">Report value from agentic or GenAI</span><span class="hb-track"><span class="hb-line"><span class="bar bar--muted" style="--p:.07" tabindex="0" data-tip="<b>7%</b> report value from agentic or generative AI in planning."></span><span class="hb-val">7%</span></span></span></div>
+      </div>
+      <figcaption>Source: BCG, State of Supply Chain Planning 2025 (Feb 2026), 180+ planning leaders.<sup><a href="#r10">10</a></sup></figcaption>
+    </figure>
+
+    <p class="body-p">McKinsey's 2024 survey explains why. Only 10% had finished advanced planning deployments, a third lacked a quantified business case, 15% said implementations missed their objectives, and none rated their data as perfect.<sup><a href="#r9">9</a></sup> Meanwhile, responding to a disruption took two weeks on average. BCG puts it plainly: fully autonomous planning "remains largely aspirational", and planners are shifting from consolidating data to orchestrating decisions.<sup><a href="#r11">11</a></sup></p>
+
+    <div class="pull-quote">
+      <p>“Ultimately, the constraint isn't technology.”</p>
+      <cite>BCG, State of Supply Chain Planning 2025</cite>
+    </div>
+
+    <div class="ai-callout">
+      <span class="ai-callout__tag">My take</span>
+      <p>The next wave of value will not come from replacing planning systems. It will come from connecting them to execution: one loop where a signal becomes a recommendation, a recommendation becomes an approved action, and the outcome feeds the next plan.</p>
+    </div>
+  </section>
+
+  <!-- ================= S3 RISK ================= -->
+  <section class="chapter chapter--alt story" id="s3" data-topic="risk">
+    <div class="chapter__head">
+      <span class="chapter__num">STORY 03 · RISK</span>
+      <h2>Tariffs exposed the tier-two blind spot</h2>
+      <p class="chapter__dek">Risk is a daily operating condition, not an annual review</p>
+    </div>
+    <p class="lede">In McKinsey's 2025 risk pulse, 82% of supply chain leaders said new tariffs affect their supply chains, typically touching 20% to 40% of supply chain activity. On a weighted average, companies expected to pass on only 45% of the cost, so most of the rest has to be absorbed or engineered out.<sup><a href="#r8">8</a></sup></p>
+
+    <figure class="chart" id="chartTier">
+      <div class="chart__head">
+        <div>
+          <span class="chart__tag">Exhibit 3 · McKinsey, Dec 2025</span>
+          <p class="chart__title">How deep can companies see?</p>
+        </div>
+        <div class="seg" role="group" aria-label="Choose supplier tier">
+          <button type="button" data-tier="t1" aria-pressed="true">Tier one</button>
+          <button type="button" data-tier="t2" aria-pressed="false">Tier two +</button>
+        </div>
+      </div>
+      <div class="depth">
+        <div class="depth__bar"><span class="depth__fill" id="depthFill" style="width:95%"></span></div>
+        <p class="depth__read"><span class="depth__n" id="depthN">95%</span> <span id="depthL">have visibility into at least tier-one supplier risks.</span></p>
+      </div>
+      <figcaption>Source: McKinsey, Supply chain risk pulse 2025 (2 Dec 2025), n=100.<sup><a href="#r8">8</a></sup> The tier-two figure is a share of those with tier-one visibility, and is up 22 points on the prior year.</figcaption>
+    </figure>
+
+    <p class="subhead">How companies are responding</p>
+    <p class="subhead__note">Click a card to open the file</p>
+    <div class="risk-grid" id="riskGrid"></div>
+    <p class="src-note">Cards R-01 to R-03: McKinsey, Dec 2025.<sup><a href="#r8">8</a></sup> Card R-04 and the domestic-sourcing figure: KPMG, Aug 2025 (US).<sup><a href="#r13">13</a></sup> Figures in [brackets] refer to the source list.</p>
+
+    <p class="body-p">The backdrop is unlikely to calm. The World Economic Forum ranks geoeconomic confrontation as the top global risk for 2026,<sup><a href="#r14">14</a></sup> and Accenture finds 76% of supply chain executives expect continued higher levels of disruption in 2026.<sup><a href="#r15">15</a></sup></p>
+
+    <div class="ai-callout">
+      <span class="ai-callout__tag">My take</span>
+      <p>Tariff shocks turned risk management from a compliance exercise into a pricing, sourcing and inventory decision that changes weekly. That favours continuous, multi-tier risk sensing that is wired straight into planning, rather than a quarterly heat map.</p>
+    </div>
+  </section>
+
+  <!-- ================= S4 DATA & ANALYTICS ================= -->
+  <section class="chapter story" id="s4" data-topic="analytics">
+    <div class="chapter__head">
+      <span class="chapter__num">STORY 04 · DATA & ANALYTICS</span>
+      <h2>Analytics before agents: the data problem</h2>
+      <p class="chapter__dek">Ambition versus reality, side by side</p>
+    </div>
+    <p class="lede">Three quarters of supply chain leaders in McKinsey's 2025 pulse are planning, blueprinting or piloting AI use cases, but only 19% say they are deploying AI tools at scale. Planned major investments in digital supply chain systems fell from 47% to 25% in a year.<sup><a href="#r8">8</a></sup></p>
+
+    <figure class="chart" id="chartGap">
+      <div class="chart__head">
+        <div>
+          <span class="chart__tag">Exhibit 4 · Compiled from McKinsey & BCG</span>
+          <p class="chart__title">Ambition versus reality</p>
+        </div>
+        <div class="seg" role="group" aria-label="Highlight series">
+          <button type="button" data-focus="both" aria-pressed="true">Both</button>
+          <button type="button" data-focus="amb" aria-pressed="false">Ambition</button>
+          <button type="button" data-focus="real" aria-pressed="false">Reality</button>
+        </div>
+      </div>
+      <div class="hbars hbars--grouped" id="gapBars" data-focus="both">
+        <div class="hb-legend"><span><i class="sw sw--muted"></i>Ambition</span><span><i class="sw sw--gold"></i>Reality</span></div>
+        <div class="hb-row"><span class="hb-lab">AI in supply chain</span><span class="hb-track">
+          <span class="hb-line amb"><span class="bar bar--muted" style="--p:.75" tabindex="0" data-tip="<b>~75%</b> planning, blueprinting or piloting AI use cases (McKinsey 2025)."></span><span class="hb-val">~75%</span></span>
+          <span class="hb-line real"><span class="bar bar--gold" style="--p:.19" tabindex="0" data-tip="<b>19%</b> deploying AI tools at scale (McKinsey 2025)."></span><span class="hb-val">19%</span></span>
+        </span></div>
+        <div class="hb-row"><span class="hb-lab">Advanced planning</span><span class="hb-track">
+          <span class="hb-line amb"><span class="bar bar--muted" style="--p:.70" tabindex="0" data-tip="<b>&gt;70%</b> invested in an advanced planning system (BCG 2026)."></span><span class="hb-val">&gt;70%</span></span>
+          <span class="hb-line real"><span class="bar bar--gold" style="--p:.20" tabindex="0" data-tip="<b>~20%</b> report meaningful value (BCG 2026)."></span><span class="hb-val">~20%</span></span>
+        </span></div>
+        <div class="hb-row"><span class="hb-lab">Major digital investment plans</span><span class="hb-track">
+          <span class="hb-line amb"><span class="bar bar--muted" style="--p:.47" tabindex="0" data-tip="<b>47%</b> planned major digital supply chain investments a year earlier (McKinsey)."></span><span class="hb-val">47%</span></span>
+          <span class="hb-line real"><span class="bar bar--gold" style="--p:.25" tabindex="0" data-tip="<b>25%</b> plan major digital investments now (McKinsey 2025)."></span><span class="hb-val">25%</span></span>
+        </span></div>
+      </div>
+      <figcaption>Sources: McKinsey (Dec 2025)<sup><a href="#r8">8</a></sup>; BCG (Feb 2026).<sup><a href="#r10">10</a></sup> The pairs come from different questions, so read them as gaps within each pair, not across rows.</figcaption>
+    </figure>
+
+    <div class="trend-grid">
+      <div class="trend-card">
+        <span class="trend-card__icon" data-icon="bars" aria-hidden="true"></span>
+        <span class="trend-card__stat">63%</span>
+        <h4>Not sure their data is AI-ready</h4>
+        <p>Organisations that lack, or are unsure they have, the right data management practices for AI.<sup><a href="#r7">7</a></sup></p>
+      </div>
+      <div class="trend-card">
+        <span class="trend-card__icon" data-icon="clock" aria-hidden="true"></span>
+        <span class="trend-card__stat">60%</span>
+        <h4>Of AI projects at risk</h4>
+        <p>Gartner predicts that, through 2026, organisations will abandon 60% of AI projects not supported by AI-ready data.<sup><a href="#r7">7</a></sup></p>
+      </div>
+      <div class="trend-card">
+        <span class="trend-card__icon" data-icon="geo" aria-hidden="true"></span>
+        <span class="trend-card__stat">83%</span>
+        <h4>Scale AI step by step</h4>
+        <p>Senior supply chain leaders who apply AI to specific use cases or scale it gradually, versus 17% pursuing immediate redesign.<sup><a href="#r6">6</a></sup></p>
+      </div>
+    </div>
+
+    <p class="body-p">The use cases leading the way are the analytical core of supply chains: McKinsey names demand forecasting, inventory optimisation and supply planning as the top generative AI applications,<sup><a href="#r8">8</a></sup> and Gartner expects 70% of large organisations to adopt AI-based supply chain forecasting by 2030.<sup><a href="#r5">5</a></sup></p>
+
+    <div class="ai-callout">
+      <span class="ai-callout__tag">My take</span>
+      <p>Analytics is not the warm-up act for AI; it is the foundation. Clean master data, shared definitions and explainable forecasts are what let an agent act without a human re-checking every number.</p>
+    </div>
+  </section>
+
+  <!-- ================= S5 TALENT ================= -->
+  <section class="chapter chapter--alt story" id="s5" data-topic="people">
+    <div class="chapter__head">
+      <span class="chapter__num">STORY 05 · TALENT</span>
+      <h2>The talent pyramid is being redrawn</h2>
+      <p class="chapter__dek">Agents change who does the work, and how people learn it</p>
+    </div>
+    <p class="lede">Gartner surveyed 509 supply chain leaders and found that changes in ways of working driven by AI and agentic AI are the single most influential driver of supply chain strategy over the next two years.<sup><a href="#r3">3</a></sup></p>
+
+    <figure class="chart" id="chartTalent">
+      <div class="chart__head">
+        <div>
+          <span class="chart__tag">Exhibit 5 · Gartner & KPMG</span>
+          <p class="chart__title">What leaders expect from AI for the workforce</p>
+        </div>
+        <span class="chart__hint">Hover or tap a bar</span>
+      </div>
+      <div class="hbars">
+        <div class="hb-row"><span class="hb-lab">Need new processes to build talent pipelines</span><span class="hb-track"><span class="hb-line"><span class="bar bar--gold" style="--p:.86" tabindex="0" data-tip="<b>86%</b> agree agentic AI requires new talent-pipeline processes (Gartner, n=509)."></span><span class="hb-val">86%</span></span></span></div>
+        <div class="hb-row"><span class="hb-lab">Report a supply chain talent gap</span><span class="hb-track"><span class="hb-line"><span class="bar bar--gold" style="--p:.77" tabindex="0" data-tip="<b>77%</b> report a talent gap (KPMG 2026, US, n=462)."></span><span class="hb-val">77%</span></span></span></div>
+        <div class="hb-row"><span class="hb-lab">Expect less entry-level hiring</span><span class="hb-track"><span class="hb-line"><span class="bar bar--flag" style="--p:.55" tabindex="0" data-tip="<b>55%</b> expect agentic AI to reduce entry-level hiring needs (Gartner)."></span><span class="hb-val">55%</span></span></span></div>
+        <div class="hb-row"><span class="hb-lab">Expect overall workforce reductions</span><span class="hb-track"><span class="hb-line"><span class="bar bar--muted" style="--p:.51" tabindex="0" data-tip="<b>51%</b> believe AI will lead to overall workforce reductions (Gartner)."></span><span class="hb-val">51%</span></span></span></div>
+      </div>
+      <figcaption>Sources: Gartner, Feb 2026 (509 leaders, fielded Jul–Oct 2025)<sup><a href="#r3">3</a></sup>; KPMG 2026 US Supply Chain Survey.<sup><a href="#r12">12</a></sup></figcaption>
+    </figure>
+
+    <p class="body-p">High performers report higher agentic AI adoption across procurement, production, logistics, warehousing and planning, yet they prioritise reinventing their talent strategy over cutting headcount. In Gartner's words, they do not treat AI as "a blunt instrument for headcount reduction".<sup><a href="#r3">3</a></sup></p>
+
+    <div class="ai-callout">
+      <span class="ai-callout__tag">My take</span>
+      <p>If agents absorb the routine tasks that used to train junior planners, companies must design a new apprenticeship: simulation, exception handling and decision reviews. The planner of 2030 is an orchestrator of decisions, not a spreadsheet operator.</p>
+    </div>
+  </section>
+
+  <!-- ================= S6 INDIA ================= -->
+  <section class="chapter story" id="s6" data-topic="india">
+    <div class="chapter__head">
+      <span class="chapter__num">STORY 06 · INDIA</span>
+      <h2>India: from logistics cost to resilience</h2>
+      <p class="chapter__dek">The efficiency story is maturing</p>
+    </div>
+    <p class="lede">India's logistics cost has been measured in different ways, and the estimates differ widely. The direction of travel is clearer than any single level.</p>
+
+    <div class="benefit-grid benefit-grid--3">
+      <div class="benefit">
+        <span class="benefit__mark">2013–14</span>
+        <span class="benefit__stat">8.6–9.8%</span>
+        <h4>of GDP</h4>
+        <p>Logistics cost estimate in NCAER's study for DPIIT.<sup><a href="#r16">16</a></sup></p>
+      </div>
+      <div class="benefit">
+        <span class="benefit__mark">2021–22</span>
+        <span class="benefit__stat">7.8–8.9%</span>
+        <h4>of GDP</h4>
+        <p>The same study's latest estimate, showing a decline.<sup><a href="#r16">16</a></sup></p>
+      </div>
+      <div class="benefit">
+        <span class="benefit__mark">2020 report</span>
+        <span class="benefit__stat">~14%</span>
+        <h4>of GDP</h4>
+        <p>An earlier Arthur D Little and CII estimate, using a different method.<sup><a href="#r17">17</a></sup></p>
+      </div>
+    </div>
+
+    <div class="ai-callout">
+      <span class="ai-callout__tag">My take</span>
+      <p>As basic logistics efficiency improves, Indian enterprises compete less on moving goods cheaply and more on planning quality, service and resilience. That is where decision intelligence, rather than transport-cost tools alone, starts to pay off, especially for Indian companies running global networks.</p>
+    </div>
+  </section>
+
+  <!-- ================= TIMELINE ================= -->
+  <section class="chapter chapter--alt" id="timeline">
+    <div class="chapter__head">
+      <span class="chapter__num">TIMELINE</span>
+      <h2>The research trail, 2024 to 2026</h2>
+      <p class="chapter__dek">Drag, swipe or use the arrows</p>
+    </div>
+    <div class="carousel" id="tl">
+      <div class="track" id="tlTrack" tabindex="0" aria-label="Research timeline"></div>
+      <div class="carousel__ctrl">
+        <button class="carousel__btn" id="tlPrev" type="button" aria-label="Previous">←</button>
+        <button class="carousel__btn" id="tlNext" type="button" aria-label="Next">→</button>
+        <span class="carousel__count"><b id="tlNow">01</b> / <span id="tlAll">00</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GLOSSARY ================= -->
+  <section class="chapter" id="glossary">
+    <div class="chapter__head">
+      <span class="chapter__num">GLOSSARY</span>
+      <h2>Terms, without the jargon</h2>
+      <p class="chapter__dek">Type to filter</p>
+    </div>
+    <label class="search">
+      <span class="sr-only">Filter glossary terms</span>
+      <input type="search" id="glossSearch" placeholder="Search terms, e.g. agent, tier, S&amp;OP" autocomplete="off">
+    </label>
+    <div class="steps" id="glossList"></div>
+    <p class="gloss-empty" id="glossEmpty" hidden>No matching term.</p>
+  </section>
+
+  <!-- ================= AUTHOR ================= -->
+  <section class="chapter chapter--alt" id="author">
+    <div class="chapter__head">
+      <span class="chapter__num">ABOUT THE AUTHOR</span>
+      <h2 id="pName">Ankush Rana</h2>
+      <p class="chapter__dek" id="pHeadline"></p>
+    </div>
+
+    <div class="author">
+      <div class="author__badge" aria-hidden="true"><span id="pInitials">AR</span></div>
+      <div class="author__body">
+        <p class="lede" id="pSummary"></p>
+        <div class="author__stats" id="pStats"></div>
+      </div>
+    </div>
+
+    <p class="subhead">Track record</p>
+    <div class="benefit-grid" id="pAch"></div>
+
+    <p class="subhead">Skills & focus</p>
+    <div class="tags" id="pFocus"></div>
+
+    <div id="pExpWrap" hidden>
+      <p class="subhead">Experience</p>
+      <ol class="exp" id="pExp"></ol>
+    </div>
+
+    <div class="split-grid author__more">
+      <div>
+        <p class="subhead">Education & certifications</p>
+        <ul class="edu" id="pEdu"></ul>
+      </div>
+      <div>
+        <p class="subhead">On the global stage</p>
+        <div class="tags" id="pStages"></div>
+        <p class="src-note" id="pLang"></p>
+      </div>
+    </div>
+
+    <p class="subhead">How I write these briefs</p>
+    <div class="pillar-grid" id="pPrinciples"></div>
+
+    <div class="author__cta">
+      <a class="btn btn--gold" id="pLinkedIn" href="https://www.linkedin.com/in/ankushsrana/" target="_blank" rel="noopener">Connect on LinkedIn ↗</a>
+      <a class="btn" href="../">More from Industry Shorts</a>
+      <button class="btn" type="button" id="shareBtn">Copy page link</button>
+    </div>
+    <p class="disclosure" id="pDisclosure"></p>
+  </section>
+
+  <!-- ================= SOURCES ================= -->
+  <section class="chapter sources" id="sources">
+    <div class="chapter__head">
+      <span class="chapter__num">¶ SOURCES & METHOD</span>
+      <h2>17 sources, 2020 to 2026</h2>
+    </div>
+    <div class="method">
+      <p>Primary publications and press releases from research firms were favoured. Surveys differ in sample size, geography and date (McKinsey's 2025 pulse has 100 respondents; KPMG's samples are US-only), so percentages are directional. Accenture and India figures come from secondary coverage. Syndicated market-size forecasts were not used because published estimates diverge widely. Callouts marked “My take” are opinion, not sourced fact.</p>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filter sources by publisher">
+      <button type="button" data-pub="all" aria-pressed="true">All</button>
+      <button type="button" data-pub="gartner" aria-pressed="false">Gartner</button>
+      <button type="button" data-pub="mckinsey" aria-pressed="false">McKinsey</button>
+      <button type="button" data-pub="bcg" aria-pressed="false">BCG</button>
+      <button type="button" data-pub="kpmg" aria-pressed="false">KPMG</button>
+      <button type="button" data-pub="other" aria-pressed="false">WEF & Accenture</button>
+      <button type="button" data-pub="india" aria-pressed="false">India studies</button>
+    </div>
+    <ol class="refs" id="refs">
+      <li id="r1" data-pub="gartner">Gartner, <a href="https://www.gartner.com/en/newsroom/press-releases/2026-04-07-gartner-forecasts-supply-chain-management-software-with-agentic-ai-will-grow-to-53-billion-in-spend-by-2030">Supply Chain Management Software with Agentic AI Will Grow to $53 Billion in Spend by 2030</a>, 7 April 2026.</li>
+      <li id="r2" data-pub="gartner">Gartner, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027">Over 40% of Agentic AI Projects Will Be Canceled by End of 2027</a>, 25 June 2025.</li>
+      <li id="r3" data-pub="gartner">Gartner, <a href="https://www.gartner.com/en/newsroom/press-releases/2026-02-25-gartner-survey-shows-55-percent-of-supply-chain-leaders-expect-agentic-ai-to-reduce-entry-level-hiring-needs">55% of Supply Chain Leaders Expect Agentic AI to Reduce Entry-Level Hiring Needs</a>, 25 February 2026 (n=509, fielded July–October 2025).</li>
+      <li id="r4" data-pub="gartner">Gartner, <a href="https://www.gartner.com/en/newsroom/press-releases/2026-06-30-gartner-identifies-top-supply-chain-technology-trends-for-2026">Top Supply Chain Technology Trends for 2026</a>, 30 June 2026.</li>
+      <li id="r5" data-pub="gartner">Gartner, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-09-16-gartner-predicts-70-percent-of-large-orgs-will-adopt-ai-based-supply-chain-forecasting-to-predict-future-demand-by-2030">70% of Large Organizations Will Adopt AI-Based Supply Chain Forecasting by 2030</a>, 16 September 2025.</li>
+      <li id="r6" data-pub="gartner">Gartner, <a href="https://www.gartner.com/en/newsroom/press-releases/2026-05-06-gartner-survey-shows-ai-is-not-driving-supply-chain-operating-model-transformation">Survey Shows AI is Not Driving Supply Chain Operating Model Transformation</a>, 6 May 2026 (n=140).</li>
+      <li id="r7" data-pub="gartner">Gartner, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk">Lack of AI-Ready Data Puts AI Projects at Risk</a>, 26 February 2025 (n=1,203 data management leaders; cross-industry).</li>
+      <li id="r8" data-pub="mckinsey">McKinsey, <a href="https://www.mckinsey.com/capabilities/operations/our-insights/supply-chain-risk-survey">Supply chain risk pulse 2025: Tariffs reshuffle global trade priorities</a>, 2 December 2025 (n=100).</li>
+      <li id="r9" data-pub="mckinsey">McKinsey, <a href="https://www.mckinsey.com/capabilities/operations/our-insights/supply-chain-risk-survey-2024">Supply chains: Still vulnerable</a>, 14 October 2024 (n=88).</li>
+      <li id="r10" data-pub="bcg">BCG, <a href="https://web-assets.bcg.com/31/d1/7fb969734ac58329d8df571006e9/supply-chain-planning-2026-report-feb-2026.pdf">State of Supply Chain Planning 2025</a>, February 2026 (180+ planning leaders).</li>
+      <li id="r11" data-pub="bcg">BCG, <a href="https://www.bcg.com/assets/2026/270-weekly-brief-getting-the-most-from-advanced-supply-chain-planning.pdf">Weekly Brief: Getting the most from advanced supply chain planning</a>, 25 February 2026.</li>
+      <li id="r12" data-pub="kpmg">KPMG, <a href="https://kpmg.com/us/en/articles/2026/2026-supply-chain-survey.html">2026 US Supply Chain Survey</a>, August 2026 (n=462, companies with $1bn+ revenue).</li>
+      <li id="r13" data-pub="kpmg">KPMG, <a href="https://kpmg.com/us/en/articles/2025/supply-chains-under-pressure.html">Tariff pressure drives uneven supply chain responses across industries</a>, August 2025 (300 US C-suite executives).</li>
+      <li id="r14" data-pub="other">World Economic Forum, <a href="https://www.weforum.org/press/2026/01/global-risks-report-2026-geopolitical-and-economic-risks-rise-in-new-age-of-competition/">Global Risks Report 2026</a>, January 2026.</li>
+      <li id="r15" data-pub="other">Accenture Pulse of Change research, as reported in <a href="https://www.sdcexec.com/software-technology/software-solutions/news/22959696/accenture-supply-chain-executives-anticipate-higher-levels-of-disruption-in-2026-accenture">Supply Chain Executives Anticipate Higher Levels of Disruption in 2026</a> (secondary coverage).</li>
+      <li id="r16" data-pub="india">NCAER study for the Logistics Division, DPIIT, as summarised by <a href="https://affairscloud.com/dpiit-released-report-on-logistics-cost-in-india-ncaer-estimates-indias-logistics-costs-at-7-8-8-9">AffairsCloud</a> (secondary summary).</li>
+      <li id="r17" data-pub="india">Arthur D Little and CII, <em>Reimagining India's supply chain: A bold vision for 2030</em>, as reported by <a href="https://www.autocarpro.in/news-national/indias-high-logistics-costs-an-impediment-to-growth-ciiarthur-d-little-report-78016?amp=1">Autocar Professional</a>, December 2020.</li>
+    </ol>
+  </section>
+
+  <footer class="footer">
+    <p>Supply Chain Brief · Independent field notes. Evidence belongs to the cited publishers.</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =====================================================================
+     PROFILE — edit this block to update the About-the-author section.
+     Leave "experience" empty to hide that list.
+     ===================================================================== */
+  var PROFILE = {
+    name: "Ankush Rana",
+    headline: "DGM Growth · B2B SaaS marketer · Supply chain, AIoT & AI",
+    summary: "I am a growth marketer and content writer with close to a decade in B2B technology. I started as an engineer, moved into content and SEO, and went on to build go-to-market engines for industrial AIoT and supply chain SaaS companies selling into North America, Europe and India. Today, as DGM Growth at a global supply chain SaaS platform provider, I run the full funnel across marketing and inside sales. I write about supply chain, IoT, SaaS and digital marketing, and I have published a book on Amazon.",
+    stats: [
+      { n: "9+",     l: "years in B2B tech marketing" },
+      { n: "$2M+",   l: "ARR supported by GTM programmes" },
+      { n: "7+",     l: "international trade shows led" },
+      { n: "6,000+", l: "accounts in an ABM programme" }
+    ],
+    focus: ["Go-to-market strategy", "Account-based marketing", "Demand generation", "Content & thought leadership",
+            "PR & press releases", "Performance marketing", "Email marketing", "SEO & AI visibility",
+            "Marketing automation", "WordPress development", "Events & trade shows", "Supply chain · IoT · AIoT"],
+    achievements: [
+      { n: "$2M+",  t: "Revenue growth", d: "Multi-channel GTM programmes, MQL pipeline management and sales–marketing alignment contributed to $2M+ ARR at an industrial AIoT platform." },
+      { n: "500+",  t: "Leads per event cycle", d: "Directed 7+ trade shows across North America and Europe (2024–2026), including Hannover Messe and AIoT World Expo." },
+      { n: "120+",  t: "MQLs a year", d: "Built an enriched ABM list of 6,000+ ICP accounts and kept 2,000+ warm accounts in active nurture workflows." },
+      { n: "80+",   t: "Earned media backlinks", d: "Crafted CEO thought leadership for Forbes Councils and led SEO programmes that lifted domain authority and organic inbound." }
+    ],
+    // { role, org, years, note }
+    experience: [
+      { role: "DGM Growth (Marketing & Inside Sales)", org: "Global supply chain SaaS platform", years: "Jun 2026 – Present",
+        note: "Owns the full-funnel growth engine: brand, positioning, demand generation, ABM, content, PR, podcasts, events, paid media, SEO/AI visibility and sales enablement." },
+      { role: "Senior Marketing Manager", org: "IoT83", years: "Mar 2023 – Jun 2026",
+        note: "GTM and demand generation for a B2B AIoT platform in North America and Europe; $140k+ budget, KPI dashboards and marketing operations across HubSpot and Zoho." },
+      { role: "Senior Content Writer", org: "Metadome.ai", years: "May 2022 – Mar 2023",
+        note: "White papers, press releases and technical SEO for XR and metaverse solutions; 30%+ domain-authority lift in six months." },
+      { role: "Senior Content Writer", org: "Yukti Solutions", years: "Apr 2021 – Mar 2022",
+        note: "Technical documentation, user manuals and training materials." },
+      { role: "Content Writer", org: "ADG Online Solutions", years: "Dec 2020 – Apr 2021",
+        note: "SEO audits for 10+ clients; communication materials for a national Labour Bureau survey programme." },
+      { role: "Earlier roles", org: "Intellinez Systems · Vrikah", years: "Earlier", note: "" },
+      { role: "Design & Market Development (R&D)", org: "Winch House India", years: "Jul 2017 – Jun 2018",
+        note: "Mechanical design engineer for an earth-moving equipment maker, turning design specifications into market-ready proposals." }
+    ],
+    education: [
+      { t: "MBA, Marketing", d: "Liverpool John Moores University, UK · 2025 – pursuing" },
+      { t: "Bachelor of Engineering", d: "Visvesvaraya Technological University · 2013 – 2017 · University rank holder" },
+      { t: "SEMRush Academy", d: "Competitive analysis & keyword research · On-page & technical SEO · Link building" }
+    ],
+    stages: ["Hannover Messe 2026", "AIoT World Expo 2026", "Manufacturing IT/OT Summit USA 2025", "Industrial IMMERSIVE 2025",
+             "IoT Tech Expo North America 2024", "AWE USA 2022", "Reuters Automotive Event USA 2022"],
+    languages: "English · Hindi · Punjabi · Urdu · German (beginner)",
+    principles: [
+      { t: "Evidence first", d: "Every number links to a published source, with sample and date." },
+      { t: "Opinion, labelled", d: "My view sits in “My take” boxes, separate from the data." },
+      { t: "No vendor pitch", d: "No product names. The aim is to understand the market." },
+      { t: "Plain language", d: "Written for operators and leaders, not only analysts." }
+    ],
+    linkedin: "https://www.linkedin.com/in/ankushsrana/",
+    disclosure: "Views are my own. I work in marketing at a supply chain technology company; this brief is an independent personal project and does not represent any employer."
+  };
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $  = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]; }); }
+
+  /* ---------------- DATA ---------------- */
+  var stories = [
+    { id:"s1", topic:"ai", tag:"Agentic AI", stat:"$53B", title:"The $53 billion bet on supply chain agents", dek:"Spend multiplies; over 40% of agentic projects may still be cancelled." },
+    { id:"s2", topic:"planning", tag:"Planning", stat:"~1 in 5", title:"Why planning systems still aren't paying back", dek:"Broad investment, narrow value, and the plan-to-execution gap." },
+    { id:"s3", topic:"risk", tag:"Risk", stat:"82%", title:"Tariffs exposed the tier-two blind spot", dek:"How deep companies can see, and how they are responding." },
+    { id:"s4", topic:"analytics", tag:"Analytics", stat:"19%", title:"Analytics before agents: the data problem", dek:"Ambition versus reality in AI and digital investment." },
+    { id:"s5", topic:"people", tag:"Talent", stat:"55%", title:"The talent pyramid is being redrawn", dek:"What agentic AI means for planners and entry-level roles." },
+    { id:"s6", topic:"india", tag:"India", stat:"7.8–8.9%", title:"India: from logistics cost to resilience", dek:"As efficiency improves, planning quality becomes the edge." }
+  ];
+
+  var responses = [
+    { code:"R-01", big:"45%", title:"Build inventory", body:'Of companies facing tariff impacts, 45% are increasing inventories [8]. Buffers buy time, but tie up working capital.' },
+    { code:"R-02", big:"39%", title:"Dual sourcing", body:'39% are pursuing dual sourcing to reduce exposure to any one trade lane [8].' },
+    { code:"R-03", big:"33%", title:"Near- or onshoring", body:'33% are developing nearshoring or onshoring plans [8]. In KPMG\'s 2025 survey, 46% shifted toward domestic sourcing on average [13].' },
+    { code:"R-04", big:"51%", title:"Renegotiate contracts", body:'On average, 51% of US executives renegotiated supplier contracts and 51% changed distribution channels in response to tariffs [13].' }
+  ];
+
+  var timeline = [
+    { d:"Oct 2024", src:"McKinsey", t:"Supply chains: still vulnerable", b:"Tier-one visibility up, deep-tier visibility and regular risk reporting down.", ref:9 },
+    { d:"Feb 2025", src:"Gartner", t:"AI-ready data warning", b:"63% unsure of data practices for AI; 60% of unsupported AI projects to be abandoned.", ref:7 },
+    { d:"Jun 2025", src:"Gartner", t:"Agentic reality check", b:"Over 40% of agentic AI projects predicted to be cancelled by end of 2027.", ref:2 },
+    { d:"Aug 2025", src:"KPMG", t:"Tariff responses diverge", b:"Contract renegotiation, domestic sourcing and channel changes vary widely by industry.", ref:13 },
+    { d:"Sep 2025", src:"Gartner", t:"AI forecasting goes mainstream", b:"70% of large organisations to adopt AI-based supply chain forecasting by 2030.", ref:5 },
+    { d:"Dec 2025", src:"McKinsey", t:"Risk pulse 2025", b:"82% affected by tariffs; only 19% deploying AI tools at scale.", ref:8 },
+    { d:"Jan 2026", src:"WEF", t:"Global Risks Report", b:"Geoeconomic confrontation ranked the top global risk for 2026.", ref:14 },
+    { d:"Feb 2026", src:"BCG · Gartner", t:"Value gap and talent shift", b:"About one in five see meaningful planning value; 55% expect less entry-level hiring.", ref:10 },
+    { d:"Apr 2026", src:"Gartner", t:"The $53B forecast", b:"Agentic SCM software spend to reach $53B by 2030; adoption from 5% to 60%.", ref:1 },
+    { d:"May 2026", src:"Gartner", t:"Incremental, not radical", b:"83% scale AI step by step; 17% pursue immediate redesign.", ref:6 },
+    { d:"Jun 2026", src:"Gartner", t:"2026 technology trends", b:"Agentic AI, multiagent systems and decision governance on one list.", ref:4 },
+    { d:"Aug 2026", src:"KPMG", t:"Autonomy on the agenda", b:"78% expect at least moderate autonomy by 2027; 77% report a talent gap.", ref:12 }
+  ];
+
+  var glossary = [
+    { t:"Agentic AI", d:"AI systems that can plan and carry out multi-step tasks toward a goal, such as raising an expedite request, within limits set by people. Different from an assistant that only answers questions." },
+    { t:"Multiagent system (MAS)", d:"Several AI agents, each with a narrow job, coordinating with one another, for example a demand agent handing a signal to a supply agent." },
+    { t:"Decision governance", d:"The rules for who, or what, may make which decision, with what evidence and audit trail. Named a 2026 trend by Gartner." },
+    { t:"Human-in-the-loop", d:"A design where an agent recommends or prepares an action and a person approves it before it runs." },
+    { t:"Integrated business planning (IBP)", d:"An evolution of S&OP that links demand, supply, product and financial plans into one monthly, cross-functional decision cycle." },
+    { t:"S&OP", d:"Sales and operations planning: the regular process that balances demand against supply capacity across teams." },
+    { t:"Plan-to-execution gap", d:"The distance between what a plan says and what happens on the ground, often caused by slow handoffs, disconnected systems and unclear decision rights." },
+    { t:"Tier-two visibility", d:"Knowing who your suppliers' suppliers are and what risks they carry. Many major disruptions start at this level." },
+    { t:"Control tower", d:"A shared view of orders, inventory and shipments in near real time, ideally with alerts and recommended actions." },
+    { t:"Decision intelligence", d:"Combining data, analytics and AI to recommend, explain and increasingly automate business decisions." },
+    { t:"Master data", d:"Core reference data such as products, locations, suppliers and units. When it is wrong, every plan built on it is wrong too." },
+    { t:"Nearshoring", d:"Moving production or sourcing closer to the end market to shorten lead times and reduce trade-lane risk." }
+  ];
+
+  /* ---------------- RENDER: DESK ---------------- */
+  var deskGrid = $('#deskGrid');
+  stories.forEach(function(s, i){
+    var a = document.createElement('a');
+    a.className = 'desk-card reveal';
+    a.href = '#' + s.id;
+    a.dataset.topic = s.topic;
+    a.innerHTML =
+      '<span class="desk-card__top"><span class="desk-card__num">' + String(i + 1).padStart(2, '0') + '</span><span class="desk-card__tag">' + s.tag + '</span></span>' +
+      '<span class="desk-card__stat">' + s.stat + '</span>' +
+      '<span class="desk-card__title">' + s.title + '</span>' +
+      '<span class="desk-card__dek">' + s.dek + '</span>' +
+      '<span class="desk-card__go">Read story →</span>';
+    deskGrid.appendChild(a);
+  });
+  $$('#deskChips button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var t = b.dataset.topic;
+      $$('#deskChips button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      $$('.desk-card', deskGrid).forEach(function(c){
+        var on = t === 'all' || c.dataset.topic === t;
+        c.classList.toggle('is-off', !on);
+        c.setAttribute('aria-hidden', on ? 'false' : 'true');
+        c.tabIndex = on ? 0 : -1;
+      });
+    });
+  });
+
+  /* ---------------- RENDER: RISK RESPONSE CARDS ---------------- */
+  var riskGrid = $('#riskGrid');
+  responses.forEach(function(s){
+    var btn = document.createElement('button');
+    btn.className = 'risk-card reveal';
+    btn.type = 'button';
+    btn.setAttribute('aria-pressed', 'false');
+    btn.setAttribute('aria-label', s.title + ', ' + s.big + '. Open file');
+    btn.innerHTML =
+      '<span class="risk-card__inner">' +
+        '<span class="risk-card__face risk-card__face--front">' +
+          '<span class="risk-card__code">' + s.code + '</span>' +
+          '<span class="risk-card__big">' + s.big + '</span>' +
+          '<h4>' + s.title + '</h4>' +
+          '<span class="risk-card__hint">Tap to open</span>' +
+        '</span>' +
+        '<span class="risk-card__face risk-card__face--back">' +
+          '<p>' + s.body + '</p>' +
+          '<span class="risk-card__back-close">Close file</span>' +
+        '</span>' +
+      '</span>';
+    btn.addEventListener('click', function(e){
+      var open = btn.classList.toggle('is-open');
+      btn.setAttribute('aria-pressed', open ? 'true' : 'false');
+    });
+    riskGrid.appendChild(btn);
+  });
+
+  /* ---------------- RENDER: TIMELINE ---------------- */
+  var tlTrack = $('#tlTrack');
+  timeline.forEach(function(e, i){
+    var d = document.createElement('article');
+    d.className = 'shift tl-item';
+    d.innerHTML =
+      '<span class="shift__num">' + String(i + 1).padStart(2, '0') + ' · ' + e.d + '</span>' +
+      '<span class="tl-src">' + e.src + '</span>' +
+      '<h4>' + e.t + '</h4>' +
+      '<p>' + e.b + '<sup><a href="#r' + e.ref + '">' + e.ref + '</a></sup></p>';
+    tlTrack.appendChild(d);
+  });
+  $('#tlAll').textContent = String(timeline.length).padStart(2, '0');
+
+  /* ---------------- RENDER: GLOSSARY ---------------- */
+  var glossList = $('#glossList');
+  glossary.forEach(function(g, i){
+    var wrap = document.createElement('div');
+    wrap.className = 'step';
+    wrap.dataset.text = (g.t + ' ' + g.d).toLowerCase();
+    var pid = 'gloss-' + i;
+    wrap.innerHTML =
+      '<button class="step__trigger" type="button" aria-expanded="false" aria-controls="' + pid + '">' +
+        '<span class="step__num">' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<span class="step__title">' + g.t + '</span>' +
+        '<span class="step__chevron">+</span>' +
+      '</button>' +
+      '<div class="step__panel" id="' + pid + '"><p>' + g.d + '</p></div>';
+    var trig = $('.step__trigger', wrap);
+    trig.addEventListener('click', function(){
+      var open = wrap.classList.toggle('is-open');
+      trig.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    glossList.appendChild(wrap);
+  });
+  $('#glossSearch').addEventListener('input', function(e){
+    var q = e.target.value.trim().toLowerCase(), shown = 0;
+    $$('.step', glossList).forEach(function(s){
+      var on = !q || s.dataset.text.indexOf(q) !== -1;
+      s.hidden = !on;
+      if (on){ shown++; }
+      var open = !!q && on;
+      s.classList.toggle('is-open', open);
+      $('.step__trigger', s).setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    $('#glossEmpty').hidden = shown !== 0;
+  });
+
+  /* ---------------- RENDER: PROFILE ---------------- */
+  $('#pName').textContent = PROFILE.name;
+  $('#pHeadline').textContent = PROFILE.headline;
+  $('#pSummary').textContent = PROFILE.summary;
+  $('#pInitials').textContent = PROFILE.name.split(/\s+/).map(function(w){ return w.charAt(0); }).join('').slice(0, 2).toUpperCase();
+  $('#pStats').innerHTML = PROFILE.stats.map(function(s){
+    return '<span class="author__stat"><b>' + esc(s.n) + '</b>' + esc(s.l) + '</span>';
+  }).join('');
+  $('#pFocus').innerHTML = PROFILE.focus.map(function(f){ return '<span class="tag">' + esc(f) + '</span>'; }).join('');
+  if (PROFILE.experience && PROFILE.experience.length){
+    $('#pExp').innerHTML = PROFILE.experience.map(function(x){
+      return '<li><span class="exp__years">' + esc(x.years || '') + '</span><span class="exp__role">' + esc(x.role || '') +
+        (x.org ? ' · <em>' + esc(x.org) + '</em>' : '') + '</span>' + (x.note ? '<span class="exp__note">' + esc(x.note) + '</span>' : '') + '</li>';
+    }).join('');
+    $('#pExpWrap').hidden = false;
+  }
+  $('#pAch').innerHTML = (PROFILE.achievements || []).map(function(a){
+    return '<div class="benefit"><span class="benefit__stat">' + esc(a.n) + '</span><h4>' + esc(a.t) + '</h4><p>' + esc(a.d) + '</p></div>';
+  }).join('');
+  $('#pEdu').innerHTML = (PROFILE.education || []).map(function(e){
+    return '<li><b>' + esc(e.t) + '</b><span>' + esc(e.d) + '</span></li>';
+  }).join('');
+  $('#pStages').innerHTML = (PROFILE.stages || []).map(function(s){ return '<span class="tag tag--stage">' + esc(s) + '</span>'; }).join('');
+  $('#pLang').textContent = PROFILE.languages ? 'Languages: ' + PROFILE.languages : '';
+  $('#pPrinciples').innerHTML = PROFILE.principles.map(function(p, i){
+    return '<div class="pillar"><span class="pillar__num">0' + (i + 1) + '</span><h4>' + esc(p.t) + '</h4><p>' + esc(p.d) + '</p></div>';
+  }).join('');
+  $('#pLinkedIn').href = PROFILE.linkedin;
+  $('#pDisclosure').textContent = PROFILE.disclosure;
+
+  var shareBtn = $('#shareBtn');
+  shareBtn.addEventListener('click', function(){
+    var url = window.location.href.split('#')[0];
+    function done(ok){
+      shareBtn.textContent = ok ? 'Link copied ✓' : url;
+      setTimeout(function(){ shareBtn.textContent = 'Copy page link'; }, 2400);
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(function(){ done(true); }, function(){ done(false); });
+      } else { done(false); }
+    } catch (err){ done(false); }
+  });
+
+  /* ---------------- STORY 01: YEAR FLIP ---------------- */
+  var agentMeter = $('#agentMeter');
+  $$('#agentFlip .seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var y = b.dataset.year;
+      $$('#agentFlip .seg button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      $$('#agentFlip .yearflip__n').forEach(function(n){
+        n.classList.remove('flip'); void n.offsetWidth;
+        n.textContent = n.getAttribute('data-' + y);
+        n.classList.add('flip');
+      });
+      agentMeter.style.width = (y === '2030' ? 60 : 5) + '%';
+    });
+  });
+
+  /* ---------------- STORY 03: TIER DEPTH ---------------- */
+  var tiers = {
+    t1: { n:"95%", w:95, l:"have visibility into at least tier-one supplier risks." },
+    t2: { n:"42%", w:42, l:"of those see into tier two or beyond, up 22 points on the prior year." }
+  };
+  $$('#chartTier .seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var t = tiers[b.dataset.tier];
+      $$('#chartTier .seg button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      $('#depthFill').style.width = t.w + '%';
+      $('#depthFill').classList.toggle('is-deep', b.dataset.tier === 't2');
+      $('#depthN').textContent = t.n;
+      $('#depthL').textContent = t.l;
+    });
+  });
+
+  /* ---------------- STORY 04: AMBITION / REALITY FOCUS ---------------- */
+  $$('#chartGap .seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      $$('#chartGap .seg button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      $('#gapBars').setAttribute('data-focus', b.dataset.focus);
+    });
+  });
+
+  /* ---------------- SCROLL REVEAL ---------------- */
+  var revealEls = $$('.reveal, .trend-card, .split-card, .benefit, .pillar, .ai-callout, .pull-quote, .deepdive, .author');
+  revealEls.forEach(function(el){ el.classList.add('reveal'); });
+  var charts = $$('.chart');
+  if ('IntersectionObserver' in window && !reduceMotion){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -60px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){ entry.target.classList.add('is-visible'); cio.unobserve(entry.target); }
+      });
+    }, { threshold:0.3 });
+    charts.forEach(function(c){ cio.observe(c); });
+  } else {
+    revealEls.concat(charts).forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  /* ---------------- PROGRESS BAR ---------------- */
+  var progressFill = $('#progressFill');
+  function updateProgress(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    progressFill.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive:true });
+  updateProgress();
+
+  /* ---------------- RAIL NAV ACTIVE STATE ---------------- */
+  var navLinks = $$('.railnav a');
+  var sections = navLinks.map(function(a){ return document.getElementById(a.dataset.target); }).filter(Boolean);
+  function setActive(id){
+    navLinks.forEach(function(a){
+      var on = a.dataset.target === id;
+      a.classList.toggle('active', on);
+      if (on && window.innerWidth <= 980){
+        var ol = a.closest('ol');
+        ol.scrollTo({ left: a.parentElement.offsetLeft - 16, behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+    });
+  }
+  if ('IntersectionObserver' in window){
+    var navIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){ if (entry.isIntersecting){ setActive(entry.target.id); } });
+    }, { threshold:0, rootMargin:'-45% 0px -50% 0px' });
+    sections.forEach(function(s){ navIo.observe(s); });
+  }
+
+  /* ---------------- TOOLTIP: BARS + CITATIONS ---------------- */
+  var tip = $('#tip'), pinned = null;
+  function place(x, y){
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, x + 14), window.innerWidth - w - 8);
+    var top = y + 16; if (top + h > window.innerHeight - 8){ top = y - h - 12; }
+    tip.style.left = left + 'px'; tip.style.top = Math.max(8, top) + 'px';
+  }
+  function show(html, x, y){ tip.innerHTML = html; tip.classList.add('show'); place(x, y); }
+  function hide(){ tip.classList.remove('show'); }
+  function centre(el){ var r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }
+
+  $$('[data-tip]').forEach(function(el){
+    el.addEventListener('pointerenter', function(e){ if (e.pointerType === 'mouse'){ show(el.dataset.tip, e.clientX, e.clientY); } });
+    el.addEventListener('pointermove', function(e){ if (e.pointerType === 'mouse'){ place(e.clientX, e.clientY); } });
+    el.addEventListener('pointerleave', function(e){ if (e.pointerType === 'mouse' && pinned !== el){ hide(); } });
+    el.addEventListener('focus', function(){ var p = centre(el); show(el.dataset.tip, p[0], p[1]); });
+    el.addEventListener('blur', function(){ if (pinned !== el){ hide(); } });
+    el.addEventListener('click', function(e){
+      e.stopPropagation();
+      if (pinned === el){ pinned = null; el.classList.remove('pinned'); hide(); return; }
+      if (pinned){ pinned.classList.remove('pinned'); }
+      pinned = el; el.classList.add('pinned');
+      show(el.dataset.tip, e.clientX, e.clientY);
+    });
+    el.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ el.blur(); hide(); } });
+  });
+  document.addEventListener('click', function(){ if (pinned){ pinned.classList.remove('pinned'); pinned = null; hide(); } });
+  window.addEventListener('scroll', function(){ if (!pinned){ hide(); } }, { passive:true });
+
+  var refText = {}, pubOf = {};
+  $$('#refs li').forEach(function(li){
+    refText[li.id] = esc(li.textContent.replace(/\s+/g, ' ').trim());
+    pubOf[li.id] = li.dataset.pub;
+  });
+  function citeOf(e){ return e.target.closest && e.target.closest('sup a[href^="#r"]'); }
+  document.addEventListener('pointerover', function(e){
+    var a = citeOf(e);
+    if (!a || e.pointerType !== 'mouse'){ return; }
+    var id = a.getAttribute('href').slice(1);
+    if (refText[id]){ show('<b>[' + a.textContent + ']</b> ' + refText[id], e.clientX, e.clientY); }
+  });
+  document.addEventListener('pointerout', function(e){ if (citeOf(e) && !pinned){ hide(); } });
+  document.addEventListener('focusin', function(e){
+    var a = citeOf(e); if (!a){ return; }
+    var id = a.getAttribute('href').slice(1), p = centre(a);
+    if (refText[id]){ show('<b>[' + a.textContent + ']</b> ' + refText[id], p[0], p[1]); }
+  });
+  document.addEventListener('focusout', function(e){ if (citeOf(e) && !pinned){ hide(); } });
+  document.addEventListener('click', function(e){
+    var a = citeOf(e); if (!a){ return; }
+    hide();
+    var li = document.getElementById(a.getAttribute('href').slice(1));
+    if (li){ li.classList.add('flash'); setTimeout(function(){ li.classList.remove('flash'); }, 2200); }
+  });
+
+  /* ---------------- TIMELINE CAROUSEL ---------------- */
+  var track = tlTrack, items = $$('.tl-item', track);
+  var prevB = $('#tlPrev'), nextB = $('#tlNext'), now = $('#tlNow');
+  function stepW(){ return items.length > 1 ? items[1].offsetLeft - items[0].offsetLeft : track.clientWidth; }
+  function idx(){
+    if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4){ return items.length - 1; }
+    return Math.max(0, Math.min(items.length - 1, Math.round(track.scrollLeft / stepW())));
+  }
+  function goTo(i){ track.scrollTo({ left: items[i].offsetLeft - items[0].offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth' }); }
+  function syncCarousel(){
+    now.textContent = String(idx() + 1).padStart(2, '0');
+    prevB.disabled = track.scrollLeft <= 4;
+    nextB.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  }
+  prevB.addEventListener('click', function(){ goTo(Math.max(0, idx() - 1)); });
+  nextB.addEventListener('click', function(){ goTo(Math.min(items.length - 1, idx() + 1)); });
+  track.addEventListener('scroll', function(){ window.requestAnimationFrame(syncCarousel); }, { passive:true });
+  track.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight'){ e.preventDefault(); nextB.click(); }
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); prevB.click(); }
+  });
+  var down = false, sx = 0, sl = 0, moved = false;
+  track.addEventListener('pointerdown', function(e){ if (e.pointerType !== 'mouse'){ return; } down = true; moved = false; sx = e.clientX; sl = track.scrollLeft; });
+  window.addEventListener('pointermove', function(e){
+    if (!down){ return; }
+    var dx = e.clientX - sx;
+    if (Math.abs(dx) > 4){ moved = true; track.classList.add('dragging'); }
+    track.scrollLeft = sl - dx;
+  });
+  window.addEventListener('pointerup', function(){
+    if (!down){ return; }
+    down = false; track.classList.remove('dragging');
+    if (moved){ goTo(idx()); }
+  });
+  track.addEventListener('click', function(e){ if (moved){ e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+  window.addEventListener('resize', syncCarousel);
+  syncCarousel();
+
+  /* ---------------- SOURCE FILTER ---------------- */
+  $$('#chips button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var pub = b.dataset.pub;
+      $$('#chips button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      $$('#refs li').forEach(function(li){ li.classList.toggle('dim', pub !== 'all' && li.dataset.pub !== pub); });
+      $$('sup a[href^="#r"]').forEach(function(a){
+        a.classList.toggle('hl', pub !== 'all' && pubOf[a.getAttribute('href').slice(1)] === pub);
+      });
+    });
+  });
+
+})();
+
+</script>
+</body>
+</html>
